@@ -12,6 +12,13 @@ def print_degrees(degrees_array, n):
 		print(degrees_array[i], end=" ")
 	print("")
 
+def get_max_degree(degrees_array, n):
+	max_value = degrees_array[0]
+	for i in range(1, n):
+		if(degrees_array[i]>max_value):
+			max_value = degrees_array[i]
+	return max_value
+
 def get_degrees(adjacency_matrix, n):
 	degrees_array = []
 	for i in range(n):
