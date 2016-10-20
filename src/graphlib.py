@@ -21,6 +21,13 @@ def build_histogram(degrees_array, n):
 		histogram[degrees_array[i]]+=1
 	return histogram
 
+def build_cum_degree(histogram, n):
+	cum_degree_array = [0 for j in range(n)]
+	for i in range(n):
+		for j in range (i, n):
+			cum_degree_array[i] += histogram[j]
+	return cum_degree_array
+
 def get_max_degree(degrees_array, n):
 	max_value = degrees_array[0]
 	for i in range(1, n):
@@ -53,10 +60,14 @@ def main():
 	#build the histogram relative to the list of degrees
 	histogram = build_histogram(degrees_array, n)
 
+	#build the cumulative degree distribution
+	cum_degree_array = build_cum_degree(histogram, n)
+
 	#print matrixes for test
 	print_3d_array(adjacency_matrix, n)	
 	print_2d_array(degrees_array, n)
 	print_2d_array(histogram, n)
+	print_2d_array(cum_degree_array, n)
 
 if __name__ == "__main__":
     main()
