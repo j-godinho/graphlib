@@ -1,16 +1,22 @@
 from __future__ import print_function
 
 
-def print_matrix(adjacency_matrix, n):
+def print_3d_array(array, n):
 	for i in range (n):
 		for j in range (n):
-			print (adjacency_matrix[i][j], end=" ")
+			print (array[i][j], end=" ")
 		print ("")	
 
-def print_degrees(degrees_array, n):
+def print_2d_array(array, n):
 	for i in range(n):
-		print(degrees_array[i], end=" ")
+		print(array[i], end=" ")
 	print("")
+
+def build_histogram(degrees_array, n):
+	histogram = [0 for j in range(n)]
+	for i in range(n):
+		histogram[degrees_array[i]]+=1
+	return histogram
 
 def get_max_degree(degrees_array, n):
 	max_value = degrees_array[0]
@@ -33,10 +39,12 @@ def get_degrees(adjacency_matrix, n):
 def main():
 	adjacency_matrix = [[0,1,1],[1,0,1],[1,1,0]]
 	n = 3;
-	print_matrix(adjacency_matrix, n)	
+	print_3d_array(adjacency_matrix, n)	
 
 	degrees_array = get_degrees(adjacency_matrix, n)
-	print_degrees(degrees_array, n)
+	print_2d_array(degrees_array, n)
+	max_degree = get_max_degree(degrees_array, n)
+	histogram = build_histogram(degrees_array, n)
 
 if __name__ == "__main__":
     main()
