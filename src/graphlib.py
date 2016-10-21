@@ -1,7 +1,7 @@
 
 from __future__ import print_function
 import networkx as nx
-import Queue
+from Queue import Queue
 class node(object):
     """docstring for node."""
     def __init__(self, arg):
@@ -55,10 +55,29 @@ def get_degrees(adjacency_matrix):
 # 				bfs_rec(dist+1, node, adjacency_matrix, dist_matrix)
 
 def bfs(adjacency_matrix, orig, dest):
+	size = len(adjacency_matrix)
 	queue = Queue()
+	visited = [[]for i in range(size)]
+	
+	visited[orig] = 1
+	queue.put(orig)
+
 	dist = 0
+	max_dist = -1
+	while(queue.empty()==False):
+		aux = queue.get()
+		dist+=1
+		for u in range (size):
+			if(u == dest):
+				if(max_dist==-1 or dist<max_dist):
+					max_dist = dist
+					
+			if(visited[u]==0):
+				visited[u]=1
+				queue.put(u)
 
 
+	return max_dist
 
 
 def main():
@@ -70,13 +89,12 @@ def main():
 	#calculate degrees of nodes
 	degrees_array = get_degrees(adj)
 	
-	dist_matrix = bfs(adj, 0, 1)
-
+	min_dist = bfs(adj, 0, 1)
+	print(min_dist)
 	#print matrixes for test
 	print_3d_array(adj)	
 	print_2d_array(degrees_array)
 
-	print_3d_array(dist_matrix)
 
 def read_file():
     g = nx.read_gml('input/adjnoun.gml')
