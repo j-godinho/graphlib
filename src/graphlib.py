@@ -1,6 +1,7 @@
 
 from __future__ import print_function
 import networkx as nx
+import Queue
 class node(object):
     """docstring for node."""
     def __init__(self, arg):
@@ -23,28 +24,6 @@ def print_2d_array(array):
 		print(array[i], end=" ")
 	print("")
 
-def create_histogram(degrees_array, max_degree):
-	histogram = [0 for j in range(max_degree+1)]
-	n = len(degrees_array)
-	for i in range(n):
-		histogram[degrees_array[i]]+=1
-	return histogram
-
-def create_cum_degree(histogram):
-	n = len(histogram)
-	cum_degree_array = [0 for j in range(n)]
-	for i in range(n):
-		for j in range (i, n):
-			cum_degree_array[i] += histogram[j]
-	return cum_degree_array
-
-def get_max_degree(degrees_array):
-	n = len(degrees_array)
-	max_value = degrees_array[0]
-	for i in range(1, n):
-		if(degrees_array[i]>max_value):
-			max_value = degrees_array[i]
-	return max_value
 
 def get_degrees(adjacency_matrix):
 	n = len(adjacency_matrix)
@@ -58,29 +37,46 @@ def get_degrees(adjacency_matrix):
 		degrees_array.append(aux_count)
 	return degrees_array
 
+# def bfs(adjacency_matrix):
+
+# 	num_nodes = len(adjacency_matrix)
+# 	dist_matrix = [[[-1] for i in range(num_nodes)] for j in range(num_nodes)]
+# 	print_3d_array(dist_matrix)
+# 	for i in range (num_nodes):
+# 		bfs_rec(0, i, adjacency_matrix, dist_matrix)
+# 	return dist_matrix
+# def bfs_rec(dist, node, adjacency_matrix, dist_matrix):
+# 	num_nodes = len(adjacency_matrix)
+# 	for i in range (num_nodes):
+# 		if(dist_matrix[node][i]<=dist):
+# 			if(adjacency_matrix[node][i]==1):
+# 				if(dist_matrix[node][i]>-1 and dist<dist_matrix[node][i]):
+# 					dist_matrix[node][i] = dist
+# 				bfs_rec(dist+1, node, adjacency_matrix, dist_matrix)
+
+def bfs(adjacency_matrix, orig, dest):
+	queue = Queue()
+	dist = 0
+
+
+
+
 def main():
 	#define adjacency_matrix test and its size
-	#adjacency_matrix = [[0,1,1],[1,0,1],[1,1,0]]
+	adj = [[0,1,1],[1,0,1],[1,1,0]]
 	#n = 3;
 
-	adj = read_file()
+	#adj = read_file()
 	#calculate degrees of nodes
 	degrees_array = get_degrees(adj)
-
-	#get the max degree of the list of degrees
-	max_degree = get_max_degree(degrees_array)
 	
-	#create the histogram relative to the list of degrees
-	histogram = create_histogram(degrees_array, max_degree)
-
-	#create the cumulative degree distribution
-	cum_degree_array = create_cum_degree(histogram)
+	dist_matrix = bfs(adj, 0, 1)
 
 	#print matrixes for test
 	print_3d_array(adj)	
 	print_2d_array(degrees_array)
-	print_2d_array(histogram)
-	print_2d_array(cum_degree_array)
+
+	print_3d_array(dist_matrix)
 
 def read_file():
     g = nx.read_gml('input/adjnoun.gml')
