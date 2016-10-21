@@ -37,22 +37,6 @@ def get_degrees(adjacency_matrix):
 		degrees_array.append(aux_count)
 	return degrees_array
 
-# def bfs(adjacency_matrix):
-
-# 	num_nodes = len(adjacency_matrix)
-# 	dist_matrix = [[[-1] for i in range(num_nodes)] for j in range(num_nodes)]
-# 	print_3d_array(dist_matrix)
-# 	for i in range (num_nodes):
-# 		bfs_rec(0, i, adjacency_matrix, dist_matrix)
-# 	return dist_matrix
-# def bfs_rec(dist, node, adjacency_matrix, dist_matrix):
-# 	num_nodes = len(adjacency_matrix)
-# 	for i in range (num_nodes):
-# 		if(dist_matrix[node][i]<=dist):
-# 			if(adjacency_matrix[node][i]==1):
-# 				if(dist_matrix[node][i]>-1 and dist<dist_matrix[node][i]):
-# 					dist_matrix[node][i] = dist
-# 				bfs_rec(dist+1, node, adjacency_matrix, dist_matrix)
 
 def bfs(adjacency_matrix, orig, dest):
 	size = len(adjacency_matrix)
@@ -68,13 +52,14 @@ def bfs(adjacency_matrix, orig, dest):
 		aux = queue.get()
 		dist+=1
 		for u in range (size):
-			if(u == dest):
-				if(max_dist==-1 or dist<max_dist):
-					max_dist = dist
-					
-			if(visited[u]==0):
-				visited[u]=1
-				queue.put(u)
+			if(adjacency_matrix[orig][u]==1):
+				if(u == dest):
+					if(max_dist==-1 or dist<max_dist):
+						max_dist = dist
+
+				if(visited[u]==0):
+					visited[u]=1
+					queue.put(u)
 
 
 	return max_dist
