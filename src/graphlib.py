@@ -58,7 +58,7 @@ def bfs(adjacency_matrix, orig, dest):
 	queue = Queue()
 	visited = [0 for i in range(size)]
 
-	dist = [9999 for i in range(size)]
+	dist = [0 for i in range(size)]
 
 	visited[orig] = 1
 	queue.put(orig)
