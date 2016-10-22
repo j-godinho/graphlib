@@ -48,10 +48,10 @@ def calc_apl(adjacency_matrix):
 			if(i!=j):
 				num_pairs+=1
 				total_length+=bfs(adjacency_matrix, i, j)
-				#print (i, j, bfs(adjacency_matrix, i, j))
 
-	print(total_length, num_pairs)				
-	return total_length/num_pairs
+					
+	#print ("total_length:", total_length, "num_pairs:", num_pairs)
+	return float(total_length)/float(num_pairs)
 
 def bfs(adjacency_matrix, orig, dest):
 	size = len(adjacency_matrix)
@@ -74,28 +74,24 @@ def bfs(adjacency_matrix, orig, dest):
 					dist[u] = dist[aux]+1
 					queue.put(u)
 					visited[u]=1
-
-				
-			
-
-
-
 	return dist[dest]
 
 
 def main():
 	#define adjacency_matrix test and its size
-	adj = [[0,1,1,0,0,0],[1,0,0,1,0,0],[1,0,0,1,0,0], [0,1,1,0,1,1], [0,0,0,1,0,0], [0,0,0,1,0,0]]
+	#adj = [[0,1,1,0,0,0],[1,0,0,1,0,0],[1,0,0,1,0,0], [0,1,1,0,1,1], [0,0,0,1,0,0], [0,0,0,1,0,0]]
 	#n = 3;
 
-	#adj = read_file()
+	adj = read_file()
 	#calculate degrees of nodes
 	degrees_array = get_degrees(adj)
 	
 	average_path_length=calc_apl(adj)
 	#print matrixes for test
-	print_3d_array(adj)	
-	print_2d_array(degrees_array)
+	#print_3d_array(adj)	
+	#print_2d_array(degrees_array)
+
+	#print the average path length
 	print("Average path length:" ,  average_path_length)
 
 
