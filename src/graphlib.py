@@ -2,31 +2,21 @@
 from __future__ import print_function
 import networkx as nx
 
-class Statistics:
+class Statistics(object):
     """docstring for node."""
     
+    def __init__(self, adj):
+        self.adj = adj
 
 
-    def __init__(self, graph):
-        self.graph = graph
-
-    def create_statistics():
-    	self.degrees_array = get_degrees(self.adj)
-    	max_degree = get_max_degree(self.degrees_array)
-    	self.histogram = create_histogram(self.degrees_array, max_degree)
-    	self.cum_degree = create_cum_degree(self.histogram)
-
-    def print_statistics():
-
-
-	def create_histogram(degrees_array, max_degree):
+	def create_histogram(self, max_degree):
 		histogram = [0 for j in range(max_degree+1)]
 		n = len(degrees_array)
 		for i in range(n):
 			histogram[degrees_array[i]]+=1
 		return histogram
 
-	def create_cum_degree(histogram):
+	def create_cum_degree(self):
 		n = len(histogram)
 		cum_degree_array = [0 for j in range(n)]
 		for i in range(n):
@@ -34,7 +24,7 @@ class Statistics:
 				cum_degree_array[i] += histogram[j]
 		return cum_degree_array
 
-	def get_max_degree(degrees_array):
+	def get_max_degree(self):
 		n = len(degrees_array)
 		max_value = degrees_array[0]
 		for i in range(1, n):
@@ -42,18 +32,23 @@ class Statistics:
 				max_value = degrees_array[i]
 		return max_value
 
-	def get_degrees(adjacency_matrix):
-		n = len(adjacency_matrix)
+	def get_degrees():
+		n = len(adj)
 		degrees_array = []
 		for i in range(n):
 			aux_count = 0 
 			for j in range(n):
-				if(adjacency_matrix[i][j] == 1):
+				if(adj[i][j] == 1):
 					aux_count = aux_count + 1
 
 			degrees_array.append(aux_count)
 		return degrees_array
 
+    def create_statistics(self):
+    	self.degrees_array = self.get_degrees()
+    	max_degree = get_max_degree()
+    	self.histogram = create_histogram(max_degree)
+    	self.cum_degree_array = create_cum_degree()
 
 
 def print_3d_array(array):
@@ -79,9 +74,14 @@ def main():
 	adj = read_file()
 
 	statistics = Statistics(adj)
-	statistics.create_statistics()
-	statistics.print_statistics()
 
+	statistics.create_statistics()
+
+	#print matrixes for test
+	#print_3d_array(statistics.adj)	
+	#print_2d_array(statistics.degrees_array)
+	#print_2d_array(statistics.histogram)
+	#print_2d_array(statistics.cum_degree_array)
 
 def read_file():
     g = nx.read_gml('input/adjnoun.gml')
