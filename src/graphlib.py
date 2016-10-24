@@ -52,7 +52,7 @@ class Statistics(object):
         self.histogram = self.create_histogram(max_degree)
         self.cum_degree_array = self.create_cum_degree()
 
-def print_2dim_array(array):
+def print_2d_array(array):
     print('[print_2dim_array]')
     n = len(array)
     for i in range(n):
@@ -61,7 +61,7 @@ def print_2dim_array(array):
         print('')
 
 
-def print_1dim_array(array):
+def print_1d_array(array):
     print('[print_1dim_array]')
     n = len(array)
     for i in range(n):
@@ -82,10 +82,10 @@ def main():
     stats.create_statistics()
     
     # print matrixes for test
-    # print_3d_array(statistics.adj)....
-    # print_2d_array(statistics.degrees_array)
-    # print_2d_array(statistics.histogram)
-    # print_2d_array(statistics.cum_degree_array)
+    print_2d_array(stats.adj)
+    print_1d_array(stats.degrees_array)
+    print_1d_array(stats.histogram)
+    print_1d_array(stats.cum_degree_array)
 
 def read_file():
     g = nx.read_gml('input/adjnoun.gml')
