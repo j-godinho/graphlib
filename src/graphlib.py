@@ -52,8 +52,8 @@ class Statistics(object):
         self.histogram = self.create_histogram(max_degree)
         self.cum_degree_array = self.create_cum_degree()
 
-def print_3d_array(array):
-    print('[print_3d_array]')
+def print_2dim_array(array):
+    print('[print_2dim_array]')
     n = len(array)
     for i in range(n):
         for j in range(n):
@@ -61,8 +61,8 @@ def print_3d_array(array):
         print('')
 
 
-def print_2d_array(array):
-    print('[print_2d_array]')
+def print_1dim_array(array):
+    print('[print_1dim_array]')
     n = len(array)
     for i in range(n):
         print(array[i], end=' ')
