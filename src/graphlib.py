@@ -3,6 +3,7 @@
 
 from __future__ import print_function
 import random
+
 def print_2d_array(array):
     print('[print_2dim_array]')
     n = len(array)
@@ -17,15 +18,15 @@ def create_random_graph(num_nodes, prob):
 	for i in range (num_nodes):
 		for j in range(num_nodes):
 			if(i!=j):
-				if(random.random()>prob):
+				if(random.random()<prob):
 					adj[i][j] = 1
 					adj[j][i] = 1
 
 	print_2d_array(adj)
 
 def main():
-	num_nodes = 10
-	prob = 0.8
+	num_nodes = 20
+	prob = 0.05
 	create_random_graph(num_nodes, prob)
     
     
