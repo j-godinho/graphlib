@@ -27,6 +27,12 @@ class Statistics(object):
                 cum_degree_array[i] += self.histogram[j]
         return cum_degree_array
 
+    def create_degree_dist(self):
+    	n = len(self.cum_degree_array)
+    	num_nodes = len(self.adj)
+    	degree_dist = [float(self.cum_degree_array[i])/num_nodes for i in range(n)]
+    	return degree_dist
+
     def get_max_degree(self):
         n = len(self.degrees_array)
         max_value = self.degrees_array[0]
@@ -51,6 +57,7 @@ class Statistics(object):
         max_degree = self.get_max_degree()
         self.histogram = self.create_histogram(max_degree)
         self.cum_degree_array = self.create_cum_degree()
+        self.degree_dist = self.create_degree_dist()
 
 def print_2d_array(array):
     print('[print_2dim_array]')
@@ -86,6 +93,7 @@ def main():
     print_1d_array(stats.degrees_array)
     print_1d_array(stats.histogram)
     print_1d_array(stats.cum_degree_array)
+    print_1d_array(stats.degree_dist)
 
 def read_file():
     g = nx.read_gml('input/adjnoun.gml')
