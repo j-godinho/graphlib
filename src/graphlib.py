@@ -2,79 +2,68 @@
 from __future__ import print_function
 import networkx as nx
 from Queue import Queue
-class node(object):
+
+class Statistics(object):
+
     """docstring for node."""
-    def __init__(self, arg):
-        super(node, self).__init__()
-        self.arg = arg
+
+    def __init__(self, adj):
+        self.adj = adj
 
 
-def print_3d_array(array):
-	print("[print_3d_array]")
-	n = len(array)
-	for i in range (n):
-		for j in range (n):
-			print (array[i][j], end=" ")
-		print ("")	
+	def calc_apl(self):
+
+		num_nodes = len(self.adj)
+		num_pairs = 0
+		total_length = 0
+		for i in range (num_nodes):
+			for j in range (num_nodes):
+				if(i!=j):
+					num_pairs+=1
+					total_length+=bfs(self.adj, i, j)		
+		return float(total_length)/float(num_pairs)
+
+	def bfs(self, orig, dest):
+		size = len(self.adj)
+		queue = Queue()
+		visited = [0 for i in range(size)]
+
+		dist = [0 for i in range(size)]
+
+		visited[orig] = 1
+		queue.put(orig)
+
+		dist[orig] = 0
+
+		while(queue.empty()==False):
+			aux = queue.get()
+
+			for u in range (size):
+				if(self.adj[aux][u]==1):
+					if(visited[u]==0):
+						dist[u] = dist[aux]+1
+						queue.put(u)
+						visited[u]=1
+		return dist[dest]
+
 
 def print_2d_array(array):
-	print("[print_2d_array]")
-	n = len(array)
-	for i in range(n):
-		print(array[i], end=" ")
-	print("")
+    print('[print_2dim_array]')
+    n = len(array)
+    for i in range(n):
+        for j in range(n):
+            print(array[i][j], end=' ')
+        print('')
 
 
-def get_degrees(adjacency_matrix):
-	n = len(adjacency_matrix)
-	degrees_array = []
-	for i in range(n):
-		aux_count = 0 
-		for j in range(n):
-			if(adjacency_matrix[i][j] == 1):
-				aux_count = aux_count + 1
-
-		degrees_array.append(aux_count)
-	return degrees_array
+def print_1d_array(array):
+    print('[print_1dim_array]')
+    n = len(array)
+    for i in range(n):
+        print(array[i], end=' ')
+    print('')
 
 
-def calc_apl(adjacency_matrix):
-
-	num_nodes = len(adjacency_matrix)
-	num_pairs = 0
-	total_length = 0
-	for i in range (num_nodes):
-		for j in range (num_nodes):
-			if(i!=j):
-				num_pairs+=1
-				total_length+=bfs(adjacency_matrix, i, j)
-
-					
-	#print ("total_length:", total_length, "num_pairs:", num_pairs)
-	return float(total_length)/float(num_pairs)
-
-def bfs(adjacency_matrix, orig, dest):
-	size = len(adjacency_matrix)
-	queue = Queue()
-	visited = [0 for i in range(size)]
-
-	dist = [0 for i in range(size)]
-
-	visited[orig] = 1
-	queue.put(orig)
-
-	dist[orig] = 0
-
-	while(queue.empty()==False):
-		aux = queue.get()
-
-		for u in range (size):
-			if(adjacency_matrix[aux][u]==1):
-				if(visited[u]==0):
-					dist[u] = dist[aux]+1
-					queue.put(u)
-					visited[u]=1
-	return dist[dest]
 
 
 def main():
@@ -83,13 +72,11 @@ def main():
 	#n = 3;
 
 	adj = read_file()
-	#calculate degrees of nodes
-	degrees_array = get_degrees(adj)
 	
-	average_path_length=calc_apl(adj)
+	stats = Statistics(adj)
+	average_path_length=stats.calc_apl()
 	#print matrixes for test
-	#print_3d_array(adj)	
-	#print_2d_array(degrees_array)
+	#print_2d_array(adj)	
 
 	#print the average path length
 	print("Average path length:" ,  average_path_length)
