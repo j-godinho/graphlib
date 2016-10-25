@@ -26,6 +26,7 @@ def create_random_graph(num_nodes, prob):
 	print_2d_array(adj)
 
 def barabasi_albert_model(init_nodes, num_nodes, prob):
+    #initialization of the array with init_nodes ALL connected
     adj = [[1 if i!=j else 0 for i in range(init_nodes)] for j in range(init_nodes)]
     print_2d_array(adj)
 
