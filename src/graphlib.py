@@ -13,6 +13,14 @@ def print_2d_array(array):
             print(array[i][j], end=' ')
         print('')
 
+def print_1d_array(array):
+    print('[print_1d_array]')
+    n = len(array)
+    for i in range(n):
+        print(array[i], end=' ')
+    print('')
+
+
 def create_random_graph(num_nodes, prob):
 	adj = [[0 for i in range(num_nodes)] for j in range(num_nodes)]
 
@@ -25,17 +33,41 @@ def create_random_graph(num_nodes, prob):
 
 	print_2d_array(adj)
 
-def barabasi_albert_model(init_nodes, num_nodes, prob):
+def barabasi_albert_model(m0,links, num_nodes, prob):
     #initialization of the array with init_nodes ALL connected
-    adj = [[1 if i!=j else 0 for i in range(init_nodes)] for j in range(init_nodes)]
+    adj = [[0 for i in range(m0)] for j in range(m0)]
+    
+    #initialization of adj with random links betweem m0 nodes
+    for i in range(m0):
+        index = i
+        while (index == i):
+            index = random.randint(0, m0-1)
+            
+        adj[i][index] = 1
+        adj[index][i] = 1
+
     print_2d_array(adj)
+
+
+
+
+    #degrees = [(init_nodes-1) for i in range(init_nodes)]
+    #print_2d_array(adj)
+    #print_1d_array(degrees)
+    
+    
+
+    #print_2d_array(adj)
+             
+
 
 def main():
 
-    init_nodes = 2
-    num_nodes = 20
+    m0 = 4
+    links = 2
+    num_nodes = 5
     prob = 0.05
-    barabasi_albert_model(init_nodes,num_nodes, prob)
+    barabasi_albert_model(m0, links,num_nodes, prob)
     
 
 
