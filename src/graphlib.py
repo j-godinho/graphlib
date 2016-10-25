@@ -1,8 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
 import networkx as nx
+from matplotlib import pyplot as plt
 
 
 class Statistics(object):
@@ -59,6 +60,9 @@ class Statistics(object):
         self.cum_degree_array = self.create_cum_degree()
         self.degree_dist = self.create_degree_dist()
 
+        #plots
+
+
 def print_2d_array(array):
     print('[print_2dim_array]')
     n = len(array)
@@ -85,9 +89,8 @@ def main():
     adj = read_file()
 
     stats = Statistics(adj)
-
     stats.create_statistics()
-    
+
     # print matrixes for test
     print_2d_array(stats.adj)
     print_1d_array(stats.degrees_array)
@@ -96,7 +99,7 @@ def main():
     print_1d_array(stats.degree_dist)
 
 def read_file():
-    g = nx.read_gml('input/adjnoun.gml')
+    g = nx.read_gml('../input/adjnoun.gml')
     nodes = nx.nodes(g)
     size = nx.number_of_nodes(g)
     adj = [[0 for x in range(size)] for y in range(size)]
