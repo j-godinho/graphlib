@@ -7,6 +7,31 @@ class Graph(object):
     variable nodes holds all the nodes of the graph
     """
 
+    def get_clustering_coefficient(self):
+        if hasattr(self, 'clustering_coefficient'):
+            return self.clustering_coefficient
+        else:
+            self.clustering_coefficient = 0
+            for node in self.nodes:
+                size = len(self.nodes)
+                k = node.get_node_degree()
+                c_matrix = [[0 for x in range(size)] for y in range(size)]
+                e = 0
+                for edge in node.edges:
+                    if c_matrix[edge.source][edge.target] == 0:
+                        c_matrix[edge.source][edge.target] = 1
+                        c_matrix[edge.target][edge.source] = 1
+                        e += 1
+                if k > 1:
+                    div = float((k * (k - 1)) / 2.0)
+                    node.clustering_coefficient =  e / div
+                else:
+                    node.clustering_coefficient = 0
+                self.clustering_coefficient += node.clustering_coefficient
+            self.clustering_coefficient = self.clustering_coefficient / size
+            return self.clustering_coefficient
+
+
     def get_adjacency_matrix(self):
         if hasattr(self, 'adjacency_matrix'):
             return self.adjacency_matrix
@@ -16,7 +41,7 @@ class Graph(object):
             for node in self.nodes:
                 edges = node.edges
                 for edge in edges:
-                    self.adjacency_matrix[ edge.node1 ][ edge.node2 ] = 1
+                    self.adjacency_matrix[ edge.source ][ edge.target ] = 1
             return self.adjacency_matrix
 
     def __init__(self):
@@ -30,7 +55,12 @@ class node(object):
     variable edges holds all the node edges
     """
 
-    # TODO calculate node degree len(edges)
+    def get_node_degree(self):
+        if hasattr(self, 'degree'):
+            return self.degree
+        else:
+            self.degree = len(self.edges)
+            return self.degree
 
     def __init__(self, label):
         super(node, self).__init__()
@@ -41,13 +71,13 @@ class edge(object):
     """
     edge class
 
-    variable node1 holds the index of the first node
-    variable node2 holds the index of the second node
+    variable source holds the index of the source node
+    variable target holds the index of the target node
     """
-    def __init__(self, node1, node2):
+    def __init__(self, source, target):
         super(edge, self).__init__()
-        self.node1 = node1
-        self.node2 = node2
+        self.source = source
+        self.target = target
 
 def read_file():
     f = nx.read_gml('input/adjnoun.gml')
