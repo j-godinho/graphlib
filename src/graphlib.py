@@ -6,6 +6,54 @@ import random
 import networkx as nx
 from Queue import Queue
 
+def create_histogram(degrees_array, max_degree):
+    histogram = [0 for j in range(max_degree + 1)]
+    n = len(degrees_array)
+    for i in range(n):
+        histogram[degrees_array[i]] += 1
+    return histogram
+
+def create_cum_degree(histogram):
+    n = len(histogram)
+    cum_degree_array = [0 for j in range(n)]
+    for i in range(n):
+        for j in range(i, n):
+            cum_degree_array[i] += histogram[j]
+    return cum_degree_array
+
+def create_degree_dist(cum_degree_array, adj):
+	n = len(cum_degree_array)
+	num_nodes = len(adj)
+	degree_dist = [float(cum_degree_array[i])/num_nodes for i in range(n)]
+	return degree_dist
+
+def get_max_degree(degrees_array):
+    n = len(degrees_array)
+    max_value = degrees_array[0]
+    for i in range(1, n):
+        if degrees_array[i] > max_value:
+            max_value = degrees_array[i]
+    return max_value
+
+def get_degrees(adj):
+    n = len(adj)
+    degrees_array = []
+    for i in range(n):
+        aux_count = 0
+        for j in range(n):
+            if adj[i][j] == 1:
+                aux_count = aux_count + 1
+        degrees_array.append(aux_count)
+    return degrees_array
+
+
+def get_degree_distribution(adj):
+    degrees_array = get_degrees(adj)
+    max_degree = get_max_degree(degrees_array)
+    histogram = create_histogram(degrees_array, max_degree)
+    cum_degree_array = create_cum_degree(histogram)
+    degree_dist = create_degree_dist(cum_degree_array, adj)
+
 
 
 def calc_apl(adj):
@@ -155,7 +203,6 @@ def main():
 
     #average_path_length = calc_apl(g.get_adjacency_matrix())
     #print('Average path length:', average_path_length)
-
-
+    #get_degree_distribution(g.get_adjacency_matrix())
 if __name__ == '__main__':
     main()
