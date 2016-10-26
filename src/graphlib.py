@@ -6,14 +6,8 @@ import networkx as nx
 from Queue import Queue
 
 
-class Statistics(object):
 
-    """docstring for node."""
-
-    def __init__(self, adj):
-        self.adj = adj
-
-    def calc_apl(self):
+    def calc_apl(adj):
         num_nodes = len(self.adj)
         num_pairs = 0
         total_length = 0
@@ -24,7 +18,7 @@ class Statistics(object):
                     total_length += self.bfs(i, j)
         return float(total_length) / float(num_pairs)
 
-    def bfs(self, orig, dest):
+    def bfs(adj, orig, dest):
         size = len(self.adj)
         queue = Queue()
         visited = [0 for i in range(size)]
@@ -59,19 +53,12 @@ def print_2d_array(array):
 
 def main():
 
-    # define adjacency_matrix test and its size
-    # adj = [[0,1,1,0,0,0],[1,0,0,1,0,0],[1,0,0,1,0,0], [0,1,1,0,1,1], [0,0,0,1,0,0], [0,0,0,1,0,0]]
-    # n = 3;
 
     adj = read_file()
 
-    stats = Statistics(adj)
-    average_path_length = stats.calc_apl()
 
-    # print matrixes for test
-    # print_2d_array(adj)....
+    average_path_length = stats.calc_apl(adj.get_adjacency_matrix())
 
-    # print the average path length
 
     print('Average path length:', average_path_length)
 
