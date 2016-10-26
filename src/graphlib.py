@@ -1,9 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function
 import networkx as nx
-
+import random
+import networkx as nx
+from Queue import Queue
 
 def create_histogram(degrees_array, max_degree):
     histogram = [0 for j in range(max_degree + 1)]
@@ -45,11 +46,6 @@ def get_degrees(adj):
         degrees_array.append(aux_count)
     return degrees_array
 
-def print_degree_dist(array):
-    n = len(array)
-    for i in range(n):
-        print(array[i], end=' ')
-    print('')
 
 def get_degree_distribution(adj):
     degrees_array = get_degrees(adj)
@@ -58,10 +54,41 @@ def get_degree_distribution(adj):
     cum_degree_array = create_cum_degree(histogram)
     degree_dist = create_degree_dist(cum_degree_array, adj)
 
-    print_degree_dist(degree_dist)
 
 
+def calc_apl(adj):
+    num_nodes = len(adj)
+    num_pairs = 0
+    total_length = 0
+    for i in range(num_nodes):
+        for j in range(num_nodes):
+            if i != j:
+                num_pairs += 1
+                total_length += bfs(adj, i, j)
+    return float(total_length) / float(num_pairs)
 
+def bfs(adj, orig, dest):
+    size = len(adj)
+    queue = Queue()
+    visited = [0 for i in range(size)]
+
+    dist = [0 for i in range(size)]
+
+    visited[orig] = 1
+    queue.put(orig)
+
+    dist[orig] = 0
+
+    while queue.empty() == False:
+        aux = queue.get()
+
+        for u in range(size):
+            if adj[aux][u] == 1:
+                if visited[u] == 0:
+                    dist[u] = dist[aux] + 1
+                    queue.put(u)
+                    visited[u] = 1
+    return dist[dest]
 
 class Graph(object):
     """
@@ -75,16 +102,21 @@ class Graph(object):
             return self.clustering_coefficient
         else:
             self.clustering_coefficient = 0
-            for node in self.nodes:
-                size = len(self.nodes)
-                k = node.get_node_degree()
-                c_matrix = [[0 for x in range(size)] for y in range(size)]
+            self.get_adjacency_matrix()
+            size = len(self.nodes)
+            for index, node in enumerate(self.nodes):
                 e = 0
                 for edge in node.edges:
-                    if c_matrix[edge.source][edge.target] == 0:
-                        c_matrix[edge.source][edge.target] = 1
-                        c_matrix[edge.target][edge.source] = 1
-                        e += 1
+                    if edge.source == index:
+                        for ind, b in enumerate(self.adjacency_matrix[edge.target]):
+                            if b and self.adjacency_matrix[index][ind]:
+                                e += 1
+                    else:
+                        for ind, b in enumerate(self.adjacency_matrix[edge.source]):
+                            if b and self.adjacency_matrix[index][ind]:
+                                e += 1
+                k = node.get_node_degree()
+                e /= 2
                 if k > 1:
                     div = float((k * (k - 1)) / 2.0)
                     node.clustering_coefficient =  e / div
@@ -141,8 +173,9 @@ class edge(object):
         self.source = source
         self.target = target
 
-def read_file():
-    f = nx.read_gml('input/adjnoun.gml')
+
+def read_file(file):
+    f = nx.read_gml(file)
     g = Graph()
     for nod in nx.nodes(f):
         n = node(nod)
@@ -154,11 +187,22 @@ def read_file():
     return g
 
 
+def random_graph(num_nodes, prob):
+    adj = [[0 for i in range(num_nodes)] for j in range(num_nodes)]
+
+    for i in range (num_nodes):
+        for j in range(num_nodes):
+            if(i!=j):
+                if(random.random()<prob):
+                    adj[i][j] = 1
+                    adj[j][i] = 1
+    return adj
+
 def main():
-    adj = read_file()
-    
-    #get_degree_distribution(adj.get_adjacency_matrix())
+    g = read_file('input/clustering.gml')
 
-
+    #average_path_length = calc_apl(g.get_adjacency_matrix())
+    #print('Average path length:', average_path_length)
+    #get_degree_distribution(g.get_adjacency_matrix())
 if __name__ == '__main__':
     main()
