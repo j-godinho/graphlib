@@ -5,11 +5,6 @@
 import networkx as nx
 import random
 
-
-
-    
-
-
 class Graph(object):
     """
     Graph class
