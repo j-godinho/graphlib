@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function
+import networkx as nx
+import random
 import networkx as nx
 from Queue import Queue
 
@@ -40,8 +41,6 @@ def bfs(adj, orig, dest):
                     queue.put(u)
                     visited[u] = 1
     return dist[dest]
-
-
 
 class Graph(object):
     """
@@ -126,6 +125,7 @@ class edge(object):
         self.source = source
         self.target = target
 
+
 def read_file(file):
     f = nx.read_gml(file)
     g = Graph()
@@ -137,6 +137,18 @@ def read_file(file):
             e = edge(nx.nodes(f).index(edg[0]), nx.nodes(f).index(edg[1]) )
             nod.edges.append(e)
     return g
+
+
+def random_graph(num_nodes, prob):
+    adj = [[0 for i in range(num_nodes)] for j in range(num_nodes)]
+
+    for i in range (num_nodes):
+        for j in range(num_nodes):
+            if(i!=j):
+                if(random.random()<prob):
+                    adj[i][j] = 1
+                    adj[j][i] = 1
+    return adj
 
 def main():
     g = read_file('input/clustering.gml')
