@@ -12,16 +12,21 @@ class Graph(object):
             return self.clustering_coefficient
         else:
             self.clustering_coefficient = 0
-            for node in self.nodes:
-                size = len(self.nodes)
-                k = node.get_node_degree()
-                c_matrix = [[0 for x in range(size)] for y in range(size)]
+            self.get_adjacency_matrix()
+            size = len(self.nodes)
+            for index, node in enumerate(self.nodes):
                 e = 0
                 for edge in node.edges:
-                    if c_matrix[edge.source][edge.target] == 0:
-                        c_matrix[edge.source][edge.target] = 1
-                        c_matrix[edge.target][edge.source] = 1
-                        e += 1
+                    if edge.source == index:
+                        for ind, b in enumerate(self.adjacency_matrix[edge.target]):
+                            if b and self.adjacency_matrix[index][ind]:
+                                e += 1
+                    else:
+                        for ind, b in enumerate(self.adjacency_matrix[edge.source]):
+                            if b and self.adjacency_matrix[index][ind]:
+                                e += 1
+                k = node.get_node_degree()
+                e /= 2
                 if k > 1:
                     div = float((k * (k - 1)) / 2.0)
                     node.clustering_coefficient =  e / div
@@ -78,8 +83,8 @@ class edge(object):
         self.source = source
         self.target = target
 
-def read_file():
-    f = nx.read_gml('input/adjnoun.gml')
+def read_file(file):
+    f = nx.read_gml(file)
     g = Graph()
     for nod in nx.nodes(f):
         n = node(nod)
@@ -91,7 +96,7 @@ def read_file():
     return g
 
 def main():
-    g = read_file()
+    g = read_file('input/clustering.gml')
 
 if __name__ == "__main__":
     main()
