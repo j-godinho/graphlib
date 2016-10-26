@@ -31,7 +31,6 @@ class Graph(object):
             self.clustering_coefficient = self.clustering_coefficient / size
             return self.clustering_coefficient
 
-
     def get_adjacency_matrix(self):
         if hasattr(self, 'adjacency_matrix'):
             return self.adjacency_matrix
