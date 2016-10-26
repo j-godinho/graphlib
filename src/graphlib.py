@@ -1,9 +1,46 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-
 import networkx as nx
 import random
+import networkx as nx
+from Queue import Queue
+
+
+
+def calc_apl(adj):
+    num_nodes = len(adj)
+    num_pairs = 0
+    total_length = 0
+    for i in range(num_nodes):
+        for j in range(num_nodes):
+            if i != j:
+                num_pairs += 1
+                total_length += bfs(adj, i, j)
+    return float(total_length) / float(num_pairs)
+
+def bfs(adj, orig, dest):
+    size = len(adj)
+    queue = Queue()
+    visited = [0 for i in range(size)]
+
+    dist = [0 for i in range(size)]
+
+    visited[orig] = 1
+    queue.put(orig)
+
+    dist[orig] = 0
+
+    while queue.empty() == False:
+        aux = queue.get()
+
+        for u in range(size):
+            if adj[aux][u] == 1:
+                if visited[u] == 0:
+                    dist[u] = dist[aux] + 1
+                    queue.put(u)
+                    visited[u] = 1
+    return dist[dest]
 
 class Graph(object):
     """
@@ -17,16 +54,21 @@ class Graph(object):
             return self.clustering_coefficient
         else:
             self.clustering_coefficient = 0
-            for node in self.nodes:
-                size = len(self.nodes)
-                k = node.get_node_degree()
-                c_matrix = [[0 for x in range(size)] for y in range(size)]
+            self.get_adjacency_matrix()
+            size = len(self.nodes)
+            for index, node in enumerate(self.nodes):
                 e = 0
                 for edge in node.edges:
-                    if c_matrix[edge.source][edge.target] == 0:
-                        c_matrix[edge.source][edge.target] = 1
-                        c_matrix[edge.target][edge.source] = 1
-                        e += 1
+                    if edge.source == index:
+                        for ind, b in enumerate(self.adjacency_matrix[edge.target]):
+                            if b and self.adjacency_matrix[index][ind]:
+                                e += 1
+                    else:
+                        for ind, b in enumerate(self.adjacency_matrix[edge.source]):
+                            if b and self.adjacency_matrix[index][ind]:
+                                e += 1
+                k = node.get_node_degree()
+                e /= 2
                 if k > 1:
                     div = float((k * (k - 1)) / 2.0)
                     node.clustering_coefficient =  e / div
@@ -83,8 +125,9 @@ class edge(object):
         self.source = source
         self.target = target
 
-def read_file():
-    f = nx.read_gml('input/adjnoun.gml')
+
+def read_file(file):
+    f = nx.read_gml(file)
     g = Graph()
     for nod in nx.nodes(f):
         n = node(nod)
@@ -94,6 +137,7 @@ def read_file():
             e = edge(nx.nodes(f).index(edg[0]), nx.nodes(f).index(edg[1]) )
             nod.edges.append(e)
     return g
+
 
 def random_graph(num_nodes, prob):
     adj = [[0 for i in range(num_nodes)] for j in range(num_nodes)]
@@ -107,11 +151,11 @@ def random_graph(num_nodes, prob):
     return adj
 
 def main():
-    g = read_file()
+    g = read_file('input/clustering.gml')
 
-    #num_nodes = 20
-    #prob = 0.05
-    #adj = random_graph(num_nodes, prob)
+    #average_path_length = calc_apl(g.get_adjacency_matrix())
+    #print('Average path length:', average_path_length)
+
 
 if __name__ == '__main__':
     main()
