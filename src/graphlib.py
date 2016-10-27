@@ -215,18 +215,17 @@ def generate_random_graph(num_nodes, prob):
 def main():
     #g = read_file('input/clustering.gml')
     
-    num_nodes = 50;
-    prob = 0.05
-    g = generate_random_graph(num_nodes, prob)
-    degree_dist = g.get_degree_distribution();
     
 
-    print "Average Path Lenght: " ,g.get_average_path_length() 
-
-    print "DEGREE DIST"
-    print degree_dist
-    print g.get_node_degree_histogram()
-    print g.get_cumulative_degree_histogram()
+    #num_nodes = 50;
+    #prob = 0.05
+    #g = generate_random_graph(num_nodes, prob)
+    #degree_dist = g.get_degree_distribution();
+    #print "Average Path Lenght: " ,g.get_average_path_length() 
+    #print "DEGREE DIST"
+    #print degree_dist
+    #print g.get_node_degree_histogram()
+    #print g.get_cumulative_degree_histogram()
 
 
 
