@@ -16,9 +16,16 @@
   P_k = \frac{N_k}{N} = \frac{1}{N}\sum_{i}{\delta(k_i-k)}
 \]
 \subsubsection{Clustering Coefficient}
+\[
+  C_i = \frac{\#\; edges\; among\; neigs}{max\; \# \; edges\; among \; neigs} = \frac{e_i}{k_i(k_i-1)/2}
+\]
+
+\[
+  \langle C\rangle = \frac{1}{N}\sum_{i}{C_i}
+\]
 \subsubsection{Average Path Length}
 \[
-  <L> = \frac{1}{N(N-1)}\sum_{ik}{L_{ik}}
+  \langle L\rangle = \frac{1}{N(N-1)}\sum_{ik}{L_{ik}}
 \]
 
 \section{Random Graph}
@@ -29,10 +36,10 @@
 \]
 \subsubsection{Clustering Coefficient}
 \[
-  C_i = \frac{e_i}{k_i(k_i-1)/2} = p \frac{k_i(k_i-1)/2}{k_i(k_i-1)/2} = p = \frac{<k>}{N} 
+  C_i = \frac{e_i}{k_i(k_i-1)/2} = p \frac{k_i(k_i-1)/2}{k_i(k_i-1)/2} = p = \frac{\langle k\rangle}{N} 
 \]
 \subsubsection{Average Path Length}
 \[
-  APL = <L> \simeq \frac{\ln{N}}{\ln{k}}
+  APL = \langle L\rangle \simeq \frac{\ln{N}}{\ln{k}}
 \]
 \end{document}
