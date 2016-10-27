@@ -25,21 +25,21 @@ class graph(object):
         if hasattr(self, 'degree_distribution'):
             return self.degree_distribution
         else:
-            n = len(self.get_cumulative_degree_histogram())
+            n = len(self.get_node_degree_histogram())
             num_nodes = len(self.nodes)
-            self.degree_distribution = [float(self.cumulative_degree_histogram[i])/num_nodes for i in range(n)]
+            self.degree_distribution = [float(self.degree_histogram[i])/num_nodes for i in range(n)]
             return self.degree_distribution
 
     def get_cumulative_degree_histogram(self):
-        if hasattr(self, 'cumulative_degree_histogram'):
-            return self.cumulative_degree_histogram
+        if hasattr(self, 'cumulative_degree_distribution'):
+            return self.cumulative_degree_distribution
         else:
-            n = len(self.get_node_degree_histogram())
-            self.cumulative_degree_histogram = [0 for j in range(n)]
+            n = len(self.get_degree_distribution())
+            self.cumulative_degree_distribution = [0 for j in range(n)]
             for i in range(n):
                 for j in range(i, n):
-                    self.cumulative_degree_histogram[i] += self.degree_histogram[j]
-            return self.cumulative_degree_histogram
+                    self.cumulative_degree_distribution[i] += self.degree_distribution[j]
+            return self.cumulative_degree_distribution
 
     def get_node_degree_histogram(self):
         if hasattr(self, 'degree_histogram'):
@@ -211,8 +211,30 @@ def generate_random_graph(num_nodes, prob):
     g.adjacency_matrix = adj
     return g
 
+
 def main():
-    g = read_file('input/clustering.gml')
+    #g = read_file('input/clustering.gml')
+    
+    
+
+    #num_nodes = 50;
+    #prob = 0.05
+    #g = generate_random_graph(num_nodes, prob)
+    #degree_dist = g.get_degree_distribution();
+    #print "Average Path Lenght: " ,g.get_average_path_length() 
+    #print "DEGREE DIST"
+    #print degree_dist
+    #print g.get_node_degree_histogram()
+    #print g.get_cumulative_degree_histogram()
+
+
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
