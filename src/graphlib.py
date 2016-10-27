@@ -30,7 +30,7 @@ class graph(object):
             self.degree_distribution = [float(self.degree_histogram[i])/num_nodes for i in range(n)]
             return self.degree_distribution
 
-    def get_cumulative_degree_histogram(self):
+    def get_cumulative_degree_distribution(self):
         if hasattr(self, 'cumulative_degree_distribution'):
             return self.cumulative_degree_distribution
         else:
@@ -214,14 +214,14 @@ def generate_random_graph(num_nodes, prob):
 
 def main():
     #g = read_file('input/clustering.gml')
-    
-    
+
+
 
     #num_nodes = 50;
     #prob = 0.05
     #g = generate_random_graph(num_nodes, prob)
     #degree_dist = g.get_degree_distribution();
-    #print "Average Path Lenght: " ,g.get_average_path_length() 
+    #print "Average Path Lenght: " ,g.get_average_path_length()
     #print "DEGREE DIST"
     #print degree_dist
     #print g.get_node_degree_histogram()
@@ -231,10 +231,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
