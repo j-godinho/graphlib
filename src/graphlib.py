@@ -46,15 +46,12 @@ def get_degrees(adj):
         degrees_array.append(aux_count)
     return degrees_array
 
-
 def get_degree_distribution(adj):
     degrees_array = get_degrees(adj)
     max_degree = get_max_degree(degrees_array)
     histogram = create_histogram(degrees_array, max_degree)
     cum_degree_array = create_cum_degree(histogram)
     degree_dist = create_degree_dist(cum_degree_array, adj)
-
-
 
 def calc_apl(adj):
     num_nodes = len(adj)
@@ -201,8 +198,5 @@ def random_graph(num_nodes, prob):
 def main():
     g = read_file('input/clustering.gml')
 
-    #average_path_length = calc_apl(g.get_adjacency_matrix())
-    #print('Average path length:', average_path_length)
-    #get_degree_distribution(g.get_adjacency_matrix())
 if __name__ == '__main__':
     main()
