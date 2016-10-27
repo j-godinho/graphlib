@@ -225,8 +225,8 @@ def generate_random_graph(num_nodes, prob):
     return g
 
 
-def main():
-    g = read_file('input/clustering.gml')
-
-if __name__ == '__main__':
-    main()
+# def main():
+#
+#
+# if __name__ == '__main__':
+#     main()
