@@ -1,16 +1,8 @@
 \documentclass[a4paper,titlepage,11pt]{article}
 
-\usepackage[top=2.54cm, bottom=2.54cm, left=2.54cm, right=2.54cm]{geometry}
 \usepackage[utf8x]{inputenc}
 \usepackage{hyperref}
 \usepackage{graphicx}
-\usepackage{fancyhdr}
-\usepackage{lastpage}
-
-
-\pagestyle{fancy}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0pt}
 
 \begin{document}
 
@@ -41,10 +33,81 @@
   \end{center}
 \end{titlepage}
 
+\section{Introduction}
 
+\section{Library Structure}
+In our library we tried to fight Python's speed problem. So we avoid any type of re-calculations.
+In every method we first check if the graph has already that attribute set.
+If it doesn't it's calculated and loaded into the respective atribute. Otherwise the method simply returns the attribute.
 
+Because of that we advise the use of the \textit{get} methods for each variable.
 
+\subsection*{Classes}
+\begin{description}
+\item [graph] Graph class where all the information of the graph is kept
 
+\textit{ \textbf{Attributes} }
+\begin{description}
+\item [ nodes ] array:node \textbf{-} list of nodes
+\item [ adjancy\_matrix ] array:array:int \textbf{-} adjacency matrix
+\item [ clustering\_coefficient ] float \textbf{-} clustering coefficient
+\item [ average\_path\_length ] float \textbf{-} average path length
+\item [ max\_node\_degree ] int \textbf{-} maximum node degree in the graph
+\item [ degree\_histogram ] array:int \textbf{-} degree histogram
+\item [ degree\_distribution ] array:float \textbf{-} degree distribution
+\item [ comulative\_degree\_distribution ] array:float \textbf{-} comulative degree distribution
+\end{description}
+
+\textit{ \textbf{Methods} }
+\begin{description}
+\item [get\_nodes] array:node ( ) - returns the list of nodes
+\item [get\_adjacency\_matrix] array:array:int ( ) \textbf{-} returns the adjacency matrix
+\item [get\_clustering\_coefficient] float ( ) \textbf{-} returns the clustering coefficient
+\item [get\_average\_path\_length] float ( ) \textbf{-} returns the average path length
+\item [calc\_node\_degrees] void ( ) \textbf{-} calculates the node degree for each node
+\item [get\_max\_node\_degree] int ( ) \textbf{-} returns the maximum node degree in the graph
+\item [get\_node\_degree\_histogram] array:int ( ) \textbf{-} returns the degree histogram
+\item [get\_degree\_distribution] array:float ( ) \textbf{-} returns the degree distribution
+\item [get\_cumulative\_degree\_distribution] array:float ( ) \textbf{-} returns the comulative degree distribution
+\end{description}
+
+\item [node] Node class where all the information of each node is kept
+
+\textit{ \textbf{Atributes} }
+\begin{description}
+\item [edges] array:edge \textbf{-} list of the edges
+\item [degree] int \textbf{-} degree of the node
+\end{description}
+
+\textit{ \textbf{Methods} }
+\begin{description}
+\item [get\_edges] array:edge ( ) \textbf{-} returns the list of edges
+\item [get\_node\_degree] int ( ) \textbf{-} returns the node degree
+\end{description}
+
+\item [edge] Edge class where all the information of each edge is kept
+
+\textit{ \textbf{Atributes} }
+\begin{description}
+\item [source] int \textbf{-} index of the source node
+\item [target] int \textbf{-} index of the target node
+\end{description}
+
+\textit{ \textbf{Methods} }
+\begin{description}
+\item [get\_source] int ( ) \textbf{-} returns the source node
+\item [get\_target] int ( ) \textbf{-} returns the target node
+\end{description}
+
+\end{description}
+
+\subsection*{Methods}
+\begin{description}
+\item [read_file] graph - % TODO
+\item [generate_random_graph] graph - % TODO
+\end{description}
+
+\section{Results}
 
 
 \section{Dataset}
@@ -74,10 +137,14 @@
 \]
 \subsubsection{Clustering Coefficient}
 \[
-  C_i = \frac{e_i}{k_i(k_i-1)/2} = p \frac{k_i(k_i-1)/2}{k_i(k_i-1)/2} = p = \frac{\langle k\rangle}{N} 
+  C_i = \frac{e_i}{k_i(k_i-1)/2} = p \frac{k_i(k_i-1)/2}{k_i(k_i-1)/2} = p = \frac{\langle k\rangle}{N}
 \]
 \subsubsection{Average Path Length}
 \[
   APL = \langle L\rangle \simeq \frac{\ln{N}}{\ln{k}}
 \]
+
+\section{Reference}
+
+
 \end{document}
