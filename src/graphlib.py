@@ -53,40 +53,6 @@ def get_degree_distribution(adj):
     cum_degree_array = create_cum_degree(histogram)
     degree_dist = create_degree_dist(cum_degree_array, adj)
 
-def get_average_path_length(adj):
-    num_nodes = len(adj)
-    num_pairs = 0
-    total_length = 0
-    for i in range(num_nodes):
-        for j in range(num_nodes):
-            if i != j:
-                num_pairs += 1
-                total_length += bfs(adj, i, j)
-    return float(total_length) / float(num_pairs)
-
-def bfs(adj, orig, dest):
-    size = len(adj)
-    queue = Queue()
-    visited = [0 for i in range(size)]
-
-    dist = [0 for i in range(size)]
-
-    visited[orig] = 1
-    queue.put(orig)
-
-    dist[orig] = 0
-
-    while queue.empty() == False:
-        aux = queue.get()
-
-        for u in range(size):
-            if adj[aux][u] == 1:
-                if visited[u] == 0:
-                    dist[u] = dist[aux] + 1
-                    queue.put(u)
-                    visited[u] = 1
-    return dist[dest]
-
 class Graph(object):
     """
     Graph class
@@ -98,6 +64,22 @@ class Graph(object):
         get_adjacency_matrix(array:(array:int)): Returns the adjacency matrix of the graph.
         get_clustering_coefficient(float): Returns the clustering coefficient of the graph.
     """
+
+    def get_average_path_length(self):
+        if hasattr(self, 'average_path_length'):
+            return self.average_path_length
+        else:
+            num_nodes = len(self.nodes)
+            num_pairs = 0
+            total_length = 0
+            adj = self.get_adjacency_matrix()
+            for i in range(num_nodes):
+                for j in range(num_nodes):
+                    if i != j:
+                        num_pairs += 1
+                        total_length += bfs(adj, i, j)
+            self.average_path_length = float(total_length) / float(num_pairs)
+            return self.average_path_length
 
     def get_clustering_coefficient(self):
         if hasattr(self, 'clustering_coefficient'):
@@ -175,6 +157,28 @@ class edge(object):
         self.source = source
         self.target = target
 
+def bfs(adj, orig, dest):
+    size = len(adj)
+    queue = Queue()
+    visited = [0 for i in range(size)]
+
+    dist = [0 for i in range(size)]
+
+    visited[orig] = 1
+    queue.put(orig)
+
+    dist[orig] = 0
+
+    while queue.empty() == False:
+        aux = queue.get()
+
+        for u in range(size):
+            if adj[aux][u] == 1:
+                if visited[u] == 0:
+                    dist[u] = dist[aux] + 1
+                    queue.put(u)
+                    visited[u] = 1
+    return dist[dest]
 
 def read_file(file):
     f = nx.read_gml(file)
@@ -187,7 +191,6 @@ def read_file(file):
             e = edge(nx.nodes(f).index(edg[0]), nx.nodes(f).index(edg[1]) )
             nod.edges.append(e)
     return g
-
 
 def random_graph(num_nodes, prob):
     adj = [[0 for i in range(num_nodes)] for j in range(num_nodes)]
