@@ -194,7 +194,7 @@ def read_file(file):
             nod.edges.append(e)
     return g
 
-def random_graph(num_nodes, prob):
+def generate_random_graph(num_nodes, prob):
     adj = [[0 for i in range(num_nodes)] for j in range(num_nodes)]
     g = graph()
     for i in range(num_nodes):
@@ -208,7 +208,7 @@ def random_graph(num_nodes, prob):
                     g.nodes[j].edges.append( edge(i, j) )
                     adj[i][j] = 1
                     adj[j][i] = 1
-    g.adjacency_matrix = adj # TODO check this
+    g.adjacency_matrix = adj
     return g
 
 def main():
