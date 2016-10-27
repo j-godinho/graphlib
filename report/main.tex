@@ -14,11 +14,15 @@
 \section{Random Graph}
 \subsection{Properties}
 \subsubsection{Degree Distribution}
-  
+\[
+  P(k) = {{N-1}\choose{k}} p^{k}(1-p)^{N-1-k}
+\]
 \subsubsection{Clustering Coefficient}
-
+\[
+  C_i = \frac{e_i}{k_i(k_i-1)/2} = p \frac{k_i(k_i-1)/2}{k_i(k_i-1)/2} = p = \frac{<k>}{N} 
+\]
 \subsubsection{Average Path Length}
 \[
-  APL = l = \frac{\ln{N}}{\ln{k}}
+  APL = <L> \simeq \frac{\ln{N}}{\ln{k}}
 \]
 \end{document}
