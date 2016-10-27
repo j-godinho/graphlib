@@ -53,15 +53,16 @@ def get_degree_distribution(adj):
     cum_degree_array = create_cum_degree(histogram)
     degree_dist = create_degree_dist(cum_degree_array, adj)
 
-class Graph(object):
+class graph(object):
     """
-    Graph class
+    graph class
 
     Atributes:
         nodes (array:node): List of all the nodes of the graph.
 
     Methods:
         get_adjacency_matrix(array:(array:int)): Returns the adjacency matrix of the graph.
+        get_average_path_length(float): Returns the average path length of the graph.
         get_clustering_coefficient(float): Returns the clustering coefficient of the graph.
     """
 
@@ -182,7 +183,7 @@ def bfs(adj, orig, dest):
 
 def read_file(file):
     f = nx.read_gml(file)
-    g = Graph()
+    g = graph()
     for nod in nx.nodes(f):
         n = node(nod)
         g.nodes.append(n)
