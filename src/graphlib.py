@@ -197,16 +197,22 @@ def read_file(file):
 def random_graph(num_nodes, prob):
     adj = [[0 for i in range(num_nodes)] for j in range(num_nodes)]
     g = graph()
+    for i in range(num_nodes):
+        label = "node {}".format(i)
+        g.nodes.append( node(label) )
     for i in range (num_nodes):
         for j in range(num_nodes):
             if(i!=j):
                 if(random.random()<prob):
+                    g.nodes[i].edges.append( edge(i, j) )
+                    g.nodes[j].edges.append( edge(i, j) )
                     adj[i][j] = 1
                     adj[j][i] = 1
+    g.adjacency_matrix = adj # TODO check this
     return g
 
 def main():
     g = read_file('input/clustering.gml')
-    
+
 if __name__ == '__main__':
     main()
