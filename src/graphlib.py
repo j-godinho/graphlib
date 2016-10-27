@@ -21,6 +21,9 @@ class graph(object):
 
     # TODO change the len(self.nodes) to a atribute
 
+    def get_nodes(self):
+        return self.nodes
+
     def get_degree_distribution(self):
         if hasattr(self, 'degree_distribution'):
             return self.degree_distribution
@@ -135,6 +138,9 @@ class node(object):
     variable edges holds all the node edges
     """
 
+    def get_edges(self):
+        return self.edges
+
     def get_node_degree(self):
         if hasattr(self, 'degree'):
             return self.degree
@@ -154,6 +160,13 @@ class edge(object):
     variable source holds the index of the source node
     variable target holds the index of the target node
     """
+
+    def get_source(self):
+        return self.source
+
+    def get_target(self):
+        return self.target
+
     def __init__(self, source, target):
         super(edge, self).__init__()
         self.source = source
@@ -213,21 +226,7 @@ def generate_random_graph(num_nodes, prob):
 
 
 def main():
-    #g = read_file('input/clustering.gml')
-
-
-
-    #num_nodes = 50;
-    #prob = 0.05
-    #g = generate_random_graph(num_nodes, prob)
-    #degree_dist = g.get_degree_distribution();
-    #print "Average Path Lenght: " ,g.get_average_path_length()
-    #print "DEGREE DIST"
-    #print degree_dist
-    #print g.get_node_degree_histogram()
-    #print g.get_cumulative_degree_histogram()
-
-
+    g = read_file('input/clustering.gml')
 
 if __name__ == '__main__':
     main()
