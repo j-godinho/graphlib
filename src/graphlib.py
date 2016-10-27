@@ -53,7 +53,7 @@ def get_degree_distribution(adj):
     cum_degree_array = create_cum_degree(histogram)
     degree_dist = create_degree_dist(cum_degree_array, adj)
 
-def calc_apl(adj):
+def get_average_path_length(adj):
     num_nodes = len(adj)
     num_pairs = 0
     total_length = 0
@@ -91,7 +91,12 @@ class Graph(object):
     """
     Graph class
 
-    variable nodes holds all the nodes of the graph
+    Atributes:
+        nodes (array:node): List of all the nodes of the graph.
+
+    Methods:
+        get_adjacency_matrix(array:(array:int)): Returns the adjacency matrix of the graph.
+        get_clustering_coefficient(float): Returns the clustering coefficient of the graph.
     """
 
     def get_clustering_coefficient(self):
