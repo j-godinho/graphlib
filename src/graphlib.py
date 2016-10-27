@@ -6,53 +6,6 @@ import random
 import networkx as nx
 from Queue import Queue
 
-def create_histogram(degrees_array, max_degree):
-    histogram = [0 for j in range(max_degree + 1)]
-    n = len(degrees_array)
-    for i in range(n):
-        histogram[degrees_array[i]] += 1
-    return histogram
-
-def create_cum_degree(histogram):
-    n = len(histogram)
-    cum_degree_array = [0 for j in range(n)]
-    for i in range(n):
-        for j in range(i, n):
-            cum_degree_array[i] += histogram[j]
-    return cum_degree_array
-
-def create_degree_dist(cum_degree_array, adj):
-	n = len(cum_degree_array)
-	num_nodes = len(adj)
-	degree_dist = [float(cum_degree_array[i])/num_nodes for i in range(n)]
-	return degree_dist
-
-def get_max_degree(degrees_array):
-    n = len(degrees_array)
-    max_value = degrees_array[0]
-    for i in range(1, n):
-        if degrees_array[i] > max_value:
-            max_value = degrees_array[i]
-    return max_value
-
-def get_degrees(adj):
-    n = len(adj)
-    degrees_array = []
-    for i in range(n):
-        aux_count = 0
-        for j in range(n):
-            if adj[i][j] == 1:
-                aux_count = aux_count + 1
-        degrees_array.append(aux_count)
-    return degrees_array
-
-def get_degree_distribution(adj):
-    degrees_array = get_degrees(adj)
-    max_degree = get_max_degree(degrees_array)
-    histogram = create_histogram(degrees_array, max_degree)
-    cum_degree_array = create_cum_degree(histogram)
-    degree_dist = create_degree_dist(cum_degree_array, adj)
-
 class graph(object):
     """
     graph class
@@ -65,6 +18,54 @@ class graph(object):
         get_average_path_length(float): Returns the average path length of the graph.
         get_clustering_coefficient(float): Returns the clustering coefficient of the graph.
     """
+
+    # TODO change the len(self.nodes) to a atribute
+
+    def get_degree_distribution(self):
+        if hasattr(self, 'degree_distribution'):
+            return self.degree_distribution
+        else:
+            n = len(self.get_cumulative_degree_histogram())
+            num_nodes = len(self.nodes)
+            self.degree_distribution = [float(self.cumulative_degree_histogram[i])/num_nodes for i in range(n)]
+            return self.degree_distribution
+
+    def get_cumulative_degree_histogram(self):
+        if hasattr(self, 'cumulative_degree_histogram'):
+            return self.cumulative_degree_histogram
+        else:
+            n = len(self.get_node_degree_histogram())
+            self.cumulative_degree_histogram = [0 for j in range(n)]
+            for i in range(n):
+                for j in range(i, n):
+                    self.cumulative_degree_histogram[i] += self.degree_histogram[j]
+            return self.cumulative_degree_histogram
+
+    def get_node_degree_histogram(self):
+        if hasattr(self, 'degree_histogram'):
+            return self.degree_histogram
+        else:
+            self.get_max_node_degree()
+            self.degree_histogram = [0 for j in range(self.max_node_degree + 1)]
+            n = len(self.nodes)
+            for i in range(n):
+                self.degree_histogram[self.nodes[i].degree] += 1
+            return self.degree_histogram
+
+    def get_max_node_degree(self):
+        if hasattr(self, 'max_node_degree'):
+            return self.max_node_degree
+        else:
+            self.calc_node_degrees()
+            self.max_node_degree = 0
+            for node in self.nodes:
+                if node.degree > self.max_node_degree:
+                    self.max_node_degree = node.degree
+            return self.max_node_degree
+
+    def calc_node_degrees(self):
+        for node in self.nodes:
+            node.get_node_degree()
 
     def get_average_path_length(self):
         if hasattr(self, 'average_path_length'):
@@ -195,17 +196,17 @@ def read_file(file):
 
 def random_graph(num_nodes, prob):
     adj = [[0 for i in range(num_nodes)] for j in range(num_nodes)]
-
+    g = graph()
     for i in range (num_nodes):
         for j in range(num_nodes):
             if(i!=j):
                 if(random.random()<prob):
                     adj[i][j] = 1
                     adj[j][i] = 1
-    return adj
+    return g
 
 def main():
     g = read_file('input/clustering.gml')
-
+    
 if __name__ == '__main__':
     main()
