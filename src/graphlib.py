@@ -52,111 +52,18 @@ def get_degree_distribution(adj):
     histogram = create_histogram(degrees_array, max_degree)
     cum_degree_array = create_cum_degree(histogram)
     degree_dist = create_degree_dist(cum_degree_array, adj)
+    return degree_dist
 
-class graph(object):
-    """
-    graph class
-
-    Atributes:
-        nodes (array:node): List of all the nodes of the graph.
-
-    Methods:
-        get_adjacency_matrix(array:(array:int)): Returns the adjacency matrix of the graph.
-        get_average_path_length(float): Returns the average path length of the graph.
-        get_clustering_coefficient(float): Returns the clustering coefficient of the graph.
-    """
-
-    def get_average_path_length(self):
-        if hasattr(self, 'average_path_length'):
-            return self.average_path_length
-        else:
-            num_nodes = len(self.nodes)
-            num_pairs = 0
-            total_length = 0
-            adj = self.get_adjacency_matrix()
-            for i in range(num_nodes):
-                for j in range(num_nodes):
-                    if i != j:
-                        num_pairs += 1
-                        total_length += bfs(adj, i, j)
-            self.average_path_length = float(total_length) / float(num_pairs)
-            return self.average_path_length
-
-    def get_clustering_coefficient(self):
-        if hasattr(self, 'clustering_coefficient'):
-            return self.clustering_coefficient
-        else:
-            self.clustering_coefficient = 0
-            self.get_adjacency_matrix()
-            size = len(self.nodes)
-            for index, node in enumerate(self.nodes):
-                e = 0
-                for edge in node.edges:
-                    if edge.source == index:
-                        for ind, b in enumerate(self.adjacency_matrix[edge.target]):
-                            if b and self.adjacency_matrix[index][ind]:
-                                e += 1
-                    else:
-                        for ind, b in enumerate(self.adjacency_matrix[edge.source]):
-                            if b and self.adjacency_matrix[index][ind]:
-                                e += 1
-                k = node.get_node_degree()
-                e /= 2
-                if k > 1:
-                    div = float((k * (k - 1)) / 2.0)
-                    node.clustering_coefficient =  e / div
-                else:
-                    node.clustering_coefficient = 0
-                self.clustering_coefficient += node.clustering_coefficient
-            self.clustering_coefficient = self.clustering_coefficient / size
-            return self.clustering_coefficient
-
-    def get_adjacency_matrix(self):
-        if hasattr(self, 'adjacency_matrix'):
-            return self.adjacency_matrix
-        else:
-            size = len(self.nodes)
-            self.adjacency_matrix = [[0 for x in range(size)] for y in range(size)]
-            for node in self.nodes:
-                edges = node.edges
-                for edge in edges:
-                    self.adjacency_matrix[ edge.source ][ edge.target ] = 1
-            return self.adjacency_matrix
-
-    def __init__(self):
-        self.nodes = []
-
-class node(object):
-    """
-    node class
-
-    variable label holds the label of the node
-    variable edges holds all the node edges
-    """
-
-    def get_node_degree(self):
-        if hasattr(self, 'degree'):
-            return self.degree
-        else:
-            self.degree = len(self.edges)
-            return self.degree
-
-    def __init__(self, label):
-        super(node, self).__init__()
-        self.label = label
-        self.edges = []
-
-class edge(object):
-    """
-    edge class
-
-    variable source holds the index of the source node
-    variable target holds the index of the target node
-    """
-    def __init__(self, source, target):
-        super(edge, self).__init__()
-        self.source = source
-        self.target = target
+def calc_apl(adj):
+    num_nodes = len(adj)
+    num_pairs = 0
+    total_length = 0
+    for i in range(num_nodes):
+        for j in range(num_nodes):
+            if i != j:
+                num_pairs += 1
+                total_length += bfs(adj, i, j)
+    return float(total_length) / float(num_pairs)
 
 def bfs(adj, orig, dest):
     size = len(adj)
@@ -201,11 +108,32 @@ def random_graph(num_nodes, prob):
             if(i!=j):
                 if(random.random()<prob):
                     adj[i][j] = 1
-                    adj[j][i] = 1
     return adj
 
 def main():
-    g = read_file('input/clustering.gml')
+    #g = read_file('input/clustering.gml')
+    
+    num_nodes = 50;
+    prob = 0.05
+    adj = random_graph(num_nodes, prob)
+    get_degree_distribution(adj);
+    
+
+    print "Average Path Lenght: " ,calc_apl(adj) 
+    
+    degree_dist = get_degree_distribution(adj)
+
+    for i in range(len(degree_dist)):
+        print degree_dist[i]
+
+
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
