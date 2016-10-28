@@ -262,11 +262,11 @@ def main():
     f3 = open('f3.txt', w)
 
     print 'generated 1'
-    g1 = generate_barabasi_albert_graph(2, 2, 1000)
+    g1 = generate_random_graph(0.05, 1000)
     print 'generated 2'
-    g2 = generate_barabasi_albert_graph(2, 2, 5000)
+    g2 = generate_random_graph(0.05, 5000)
     print 'generated 3'
-    g3 = generate_barabasi_albert_graph(2, 2, 10000)
+    g3 = generate_random_graph(0.05, 10000)
 
     print '1 degree_distribution'
     f1.write('degree_distribution')
