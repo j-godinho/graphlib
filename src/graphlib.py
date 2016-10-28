@@ -257,11 +257,58 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
     return g
 
 def main():
-    g = read_file('input/adjnoun.gml')
-    print g.get_degree_distribution()
-    print g.get_clustering_coefficient()
-    print g.get_average_path_length()
+    f1 = open('f1.txt', w)
+    f2 = open('f2.txt', w)
+    f3 = open('f3.txt', w)
 
+    print 'generated 1'
+    g1 = generate_barabasi_albert_graph(2, 2, 1000)
+    print 'generated 2'
+    g2 = generate_barabasi_albert_graph(2, 2, 5000)
+    print 'generated 3'
+    g3 = generate_barabasi_albert_graph(2, 2, 10000)
+
+    print '1 degree_distribution'
+    f1.write('degree_distribution')
+    f1.write(g1.get_degree_distribution())
+    print '1 cumulative_degree_distribution'
+    f1.write('cumulative_degree_distribution')
+    g1.get_cumulative_degree_distribution()
+    print '1 clustering_coefficient'
+    f1.write('clustering_coefficient')
+    g1.get_clustering_coefficient()
+    print '1 average_path_length'
+    f1.write('average_path_length')
+    g1.get_average_path_length()
+    f1.close()
+
+    print '2 degree_distribution'
+    f2.write('degree_distribution')
+    f2.write(g1.get_degree_distribution())
+    print '2 cumulative_degree_distribution'
+    f2.write('cumulative_degree_distribution')
+    g2.get_cumulative_degree_distribution()
+    print '2 clustering_coefficient'
+    f2.write('clustering_coefficient')
+    g2.get_clustering_coefficient()
+    print '2 average_path_length'
+    f2.write('average_path_length')
+    g2.get_average_path_length()
+    f2.close()
+
+    print '3 degree_distribution'
+    f3.write('degree_distribution')
+    f3.write(g1.get_degree_distribution())
+    print '3 cumulative_degree_distribution'
+    f3.write('cumulative_degree_distribution')
+    g3.get_cumulative_degree_distribution()
+    print '3 clustering_coefficient'
+    f3.write('clustering_coefficient')
+    g3.get_clustering_coefficient()
+    print '3 average_path_length'
+    f3.write('average_path_length')
+    g3.get_average_path_length()
+    f3.close()
 
 if __name__ == '__main__':
     main()
