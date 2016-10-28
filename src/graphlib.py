@@ -1,10 +1,15 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import networkx as nx
 import random
 import networkx as nx
 from Queue import Queue
+
+
+
+             
+
 
 class graph(object):
     """
@@ -225,8 +230,50 @@ def generate_random_graph(num_nodes, prob):
     return g
 
 
-# def main():
-#
-#
-# if __name__ == '__main__':
-#     main()
+def generate_barabasi_albert_graph(m0, links, num_nodes):
+    #initialization of the array with init_nodes ALL connected
+    adj = [[0 for i in range(num_nodes+m0)] for j in range(num_nodes+m0)]
+    g = graph()
+
+    #initialization of adj with random links betweem m0 nodes
+    for i in range(m0):
+        index = i
+        while (index == i):
+            index = random.randint(0, m0-1)
+            
+        adj[i][index] = 1
+        adj[index][i] = 1
+
+
+    nodes_added = 0
+    for i in range(num_nodes):
+        rand_nums = []
+        for k in range (links):   
+            value = random.randint(0, m0+nodes_added)
+            while(value in rand_nums):
+                value = random.randint(0, m0 + nodes_added)
+            
+            rand_nums.append(value)
+            adj[m0 + i][value] = 1
+            adj[value][m0 + i] = 1
+        nodes_added+=1
+
+    g.adjacency_matrix = adj
+    return g
+
+
+
+def main():
+
+
+    m0 = 4
+    links = 2
+    num_nodes = 20
+    g = generate_barabasi_albert_graph(m0, links, num_nodes)
+    
+    print g.get_adjacency_matrix()
+
+
+if __name__ == '__main__':
+    main()
+    
