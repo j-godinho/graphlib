@@ -42,6 +42,8 @@ After the graph is obtained you can use the available graph class attributes and
 We chose Python as our programming language for its simplicity and great comunity in this field.
 For parsing the data sets we used the networkx library, only using it to read the  '.gml' files and to receive the list of nodes and their edges.
 
+In our implementation we assumed that the graphs are not directed. 
+
 \section{Library Structure}
 In our library we tried to fight Python's speed problem. So we avoid any type of re-calculations.
 In every method we first check if the graph has already that attribute set.
