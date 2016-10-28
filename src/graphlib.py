@@ -266,12 +266,12 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
 def main():
 
 
-    #m0 = 4
-    #links = 2
-    #num_nodes = 20
-    #g = generate_barabasi_albert_graph(m0, links, num_nodes)
-    #
-    #print g.get_adjacency_matrix()
+    m0 = 4
+    links = 2
+    num_nodes = 20
+    g = generate_barabasi_albert_graph(m0, links, num_nodes)
+    
+    print g.get_adjacency_matrix()
 
 
 if __name__ == '__main__':
