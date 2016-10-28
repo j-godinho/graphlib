@@ -237,8 +237,8 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
 
     #initialization of adj with random links betweem m0 nodes
     for i in range(m0):
-        index = i
-        while (index == i):
+        index = random.randint(0, m0-1)
+        while (index == i and adj[i][index]==1):
             index = random.randint(0, m0-1)
             
         adj[i][index] = 1
@@ -249,9 +249,9 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
     for i in range(num_nodes):
         rand_nums = []
         for k in range (links):   
-            value = random.randint(0, m0+nodes_added)
+            value = random.randint(0, m0+nodes_added-1)
             while(value in rand_nums):
-                value = random.randint(0, m0 + nodes_added)
+                value = random.randint(0, m0 + nodes_added-1)
             
             rand_nums.append(value)
             adj[m0 + i][value] = 1
@@ -268,7 +268,7 @@ def main():
 
     m0 = 4
     links = 2
-    num_nodes = 20
+    num_nodes = 0
     g = generate_barabasi_albert_graph(m0, links, num_nodes)
     
     print g.get_adjacency_matrix()
