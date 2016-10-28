@@ -3,7 +3,6 @@
 
 import networkx as nx
 import random
-import networkx as nx
 from Queue import Queue
 
 class graph(object):
@@ -240,11 +239,11 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
         g.nodes[index].edges.append( edge(i, index))
         adj[i][index] = 1
         adj[index][i] = 1
-    
+
     nodes_added = 0
     for i in range(num_nodes):
         rand_nums = []
-        for k in range (links):   
+        for k in range (links):
             value = random.randint(0, m0+nodes_added-1)
             while(value in rand_nums):
                 value = random.randint(0, m0 + nodes_added-1)
@@ -258,14 +257,10 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
     return g
 
 def main():
-
-
-    m0 = 4
-    links = 2
-    num_nodes = 20
-    g = generate_barabasi_albert_graph(m0, links, num_nodes)
-    
-    print g.get_adjacency_matrix()
+    g = read_file('input/adjnoun.gml')
+    print g.get_degree_distribution()
+    print g.get_clustering_coefficient()
+    print g.get_average_path_length()
 
 
 if __name__ == '__main__':
