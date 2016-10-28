@@ -34,6 +34,13 @@
 \end{titlepage}
 
 \section{Introduction}
+As students coming from Computer Science we thought that the development of a small library for the third topic of the project would be interesting.
+So we developed a simple library that generates a graph. This can be done randomly, using the random model or the Barabasi-Albert model, or as '.gml' file.
+
+After the graph is obtained you can use the available graph class attributes and methods as described below.
+
+We chose Python as our programming language for its simplicity and great comunity in this field.
+For parsing the data sets we used the networkx library, only using it to read the  '.gml' files and to receive the list of nodes and their edges.
 
 \section{Library Structure}
 In our library we tried to fight Python's speed problem. So we avoid any type of re-calculations.
@@ -106,6 +113,9 @@ Because of that we advise the use of the \textit{get} methods for each variable.
 \item [read\_file] graph (string) \textbf{-} reads a proper formated gml file returning the graph object for that file
 \item [generate\_random\_graph] graph (number of nodes, prob) \textbf{-} receives a number of nodes and the probability of
                                                             having a link between each other returning a random graph with that parameters
+\item [generate\_barabasi\_albert\_graph] graph (number of initial nodes, number of links of each node, number of inserted nodes) \textbf{-} receives
+                                                            the number of initial nodes, the number of links of each node and the number of inserted
+                                                            nodes in the graph returning the graph object for that parameters using the Barabasi-Albert Model.
 \end{description}
 
 \section{Results}
