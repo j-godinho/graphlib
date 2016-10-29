@@ -4,7 +4,6 @@
 import networkx as nx
 import random
 from Queue import Queue
-
 class graph(object):
     """
     graph class
@@ -69,6 +68,22 @@ class graph(object):
         for node in self.nodes:
             node.get_node_degree()
 
+    # def get_average_path_length(self):
+    #     if hasattr(self, 'average_path_length'):
+    #         return self.average_path_length
+    #     else:
+    #         num_nodes = len(self.nodes)
+    #         num_pairs = 0
+    #         total_length = 0
+    #         adj = self.get_adjacency_matrix()
+    #         for i in range(num_nodes):
+    #             for j in range(i, num_nodes):
+    #                 if i != j:
+    #                     num_pairs += 1
+    #                     total_length += bfs(adj, i, j)
+    #         self.average_path_length = float(total_length) / float(num_pairs)
+    #         return self.average_path_length
+
     def get_average_path_length(self):
         if hasattr(self, 'average_path_length'):
             return self.average_path_length
@@ -77,13 +92,16 @@ class graph(object):
             num_pairs = 0
             total_length = 0
             adj = self.get_adjacency_matrix()
+            #get floyd warshall
+            dist = floyd_warshall(adj)
             for i in range(num_nodes):
                 for j in range(i, num_nodes):
                     if i != j:
                         num_pairs += 1
-                        total_length += bfs(adj, i, j)
+                        total_length += dist[i][j]
             self.average_path_length = float(total_length) / float(num_pairs)
             return self.average_path_length
+
 
     def get_clustering_coefficient(self):
         if hasattr(self, 'clustering_coefficient'):
@@ -125,6 +143,8 @@ class graph(object):
                 for edge in edges:
                     self.adjacency_matrix[ edge.source ][ edge.target ] = 1
             return self.adjacency_matrix
+
+
 
     def __init__(self):
         self.nodes = []
@@ -170,6 +190,28 @@ class edge(object):
         super(edge, self).__init__()
         self.source = source
         self.target = target
+
+def floyd_warshall(adj):
+    num_nodes = len(adj)
+    dist = [[999999 for i in range(num_nodes)] for j in range(num_nodes)]
+    
+    for  i in range(num_nodes):  
+       dist[i][i] = 0
+
+    for i in range(num_nodes):
+        for j in range(num_nodes):
+            if(adj[i][j]==1):
+                dist[i][j] = 1
+
+    for k in range(num_nodes):
+        for i in range(num_nodes):
+            for j in range(num_nodes):
+                if(dist[i][j] > dist[i][k]+dist[k][j]):
+                    dist[i][j] = dist[i][k] + dist[k][j]
+
+    return dist
+
+
 
 def bfs(adj, orig, dest):
     size = len(adj)
@@ -256,17 +298,17 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
     g.adjacency_matrix = adj
     return g
 
-def main():
-    f1 = open('f1.txt', w)
-    f2 = open('f2.txt', w)
-    f3 = open('f3.txt', w)
 
+
+def main():
+    f1 = open('f1.txt', "w")
+    f2 = open('f2.txt', "w")
+    
     print 'generated 1'
-    g1 = generate_random_graph(0.05, 1000)
+    g1 = generate_random_graph(1000, 0.05)
     print 'generated 2'
-    g2 = generate_random_graph(0.05, 5000)
-    print 'generated 3'
-    g3 = generate_random_graph(0.05, 10000)
+    g2 = generate_random_graph(5000, 0.05)
+    
 
     print '1 degree_distribution'
     f1.write('degree_distribution\n')
@@ -305,25 +347,7 @@ def main():
     f2.write('average_path_length\n')
     f2.write('{}\n'.format(g2.get_average_path_length()))
     f2.close()
-
-    print '3 degree_distribution'
-    f3.write('degree_distribution\n')
-    for i, v in enumerate(g3.get_degree_distribution()):
-        f3.write('{} {}\n'.format(i, v))
-
-    print '3 cumulative_degree_distribution'
-    f3.write('cumulative_degree_distribution\n')
-    for i, v in enumerate(g3.get_cumulative_degree_distribution()):
-        f3.write('{} {}\n'.format(i, v))
-
-    print '3 clustering_coefficient'
-    f3.write('clustering_coefficient\n')
-    f3.write('{}\n'.format(g3.get_clustering_coefficient()))
-
-    print '3 average_path_length'
-    f3.write('average_path_length\n')
-    f3.write('{}\n'.format(g3.get_average_path_length()))
-    f3.close()
+    
 
 if __name__ == '__main__':
     main()
