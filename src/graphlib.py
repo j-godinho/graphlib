@@ -78,7 +78,7 @@ class graph(object):
             total_length = 0
             adj = self.get_adjacency_matrix()
             for i in range(num_nodes):
-                for j in range(num_nodes):
+                for j in range(i, num_nodes):
                     if i != j:
                         num_pairs += 1
                         total_length += bfs(adj, i, j)
