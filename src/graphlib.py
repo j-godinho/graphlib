@@ -299,7 +299,6 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
     return g
 
 
-
 def main():
     f1 = open('f1.txt', "w")
     f2 = open('f2.txt', "w")
@@ -348,6 +347,48 @@ def main():
     f2.write('{}\n'.format(g2.get_average_path_length()))
     f2.close()
     
+    # print '1 average_path_length'
+    # f1.write('average_path_length\n')
+    # f1.write('{}\n'.format(g1.get_average_path_length()))
+    # f1.close()
+
+    # print '2 degree_distribution'
+    # f2.write('degree_distribution\n')
+    # for i, v in enumerate(g2.get_degree_distribution()):
+    #    f2.write('{} {}\n'.format(i, v))
+
+    # print '2 cumulative_degree_distribution'
+    # f2.write('cumulative_degree_distribution\n')
+    # for i, v in enumerate(g2.get_cumulative_degree_distribution()):
+    #     f2.write('{} {}\n'.format(i, v))
+
+    # print '2 clustering_coefficient'
+    # f2.write('clustering_coefficient\n')
+    # f2.write('{}\n'.format(g2.get_clustering_coefficient()))
+
+    # print '2 average_path_length'
+    # f2.write('average_path_length\n')
+    # f2.write('{}\n'.format(g2.get_average_path_length()))
+    # f2.close()
+
+    # print '3 degree_distribution'
+    # f3.write('degree_distribution\n')
+    # for i, v in enumerate(g3.get_degree_distribution()):
+    #     f3.write('{} {}\n'.format(i, v))
+
+    # print '3 cumulative_degree_distribution'
+    # f3.write('cumulative_degree_distribution\n')
+    # for i, v in enumerate(g3.get_cumulative_degree_distribution()):
+    #     f3.write('{} {}\n'.format(i, v))
+
+    # print '3 clustering_coefficient'
+    # f3.write('clustering_coefficient\n')
+    # f3.write('{}\n'.format(g3.get_clustering_coefficient()))
+
+    # print '3 average_path_length'
+    # f3.write('average_path_length\n')
+    # f3.write('{}\n'.format(g3.get_average_path_length()))
+    # f3.close()
 
 if __name__ == '__main__':
     main()
