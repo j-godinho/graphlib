@@ -257,16 +257,16 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
     return g
 
 def main():
-    f1 = open('f1.txt', w)
-    f2 = open('f2.txt', w)
-    f3 = open('f3.txt', w)
+    f1 = open('f1.txt', 'w')
+    f2 = open('f2.txt', 'w')
+    f3 = open('f3.txt', 'w')
 
     print 'generated 1'
-    g1 = generate_random_graph(0.05, 1000)
+    g1 = generate_random_graph(1000, 0.05)
     print 'generated 2'
-    g2 = generate_random_graph(0.05, 5000)
+    g2 = generate_random_graph(5000, 0.05)
     print 'generated 3'
-    g3 = generate_random_graph(0.05, 10000)
+    g3 = generate_random_graph(10000, 0.05)
 
     print '1 degree_distribution'
     f1.write('degree_distribution\n')
