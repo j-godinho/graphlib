@@ -194,8 +194,8 @@ class edge(object):
 def floyd_warshall(adj):
     num_nodes = len(adj)
     dist = [[999999 for i in range(num_nodes)] for j in range(num_nodes)]
-    
-    for  i in range(num_nodes):  
+
+    for  i in range(num_nodes):
        dist[i][i] = 0
 
     for i in range(num_nodes):
@@ -302,12 +302,12 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
 def main():
     f1 = open('f1.txt', "w")
     f2 = open('f2.txt', "w")
-    
+
     print 'generated 1'
     g1 = generate_random_graph(1000, 0.05)
     print 'generated 2'
     g2 = generate_random_graph(5000, 0.05)
-    
+
 
     print '1 degree_distribution'
     f1.write('degree_distribution\n')
@@ -322,6 +322,10 @@ def main():
     print '1 clustering_coefficient'
     f1.write('clustering_coefficient\n')
     f1.write('{}\n'.format(g1.get_clustering_coefficient()))
+    f1.write('individual clustering_coefficient\n')
+    for i, v in enumerate(g1.nodes):
+        f1.write('{} {}\n'.format(i, v.clustering_coefficient))
+
 
     print '1 average_path_length'
     f1.write('average_path_length\n')
@@ -341,12 +345,15 @@ def main():
     print '2 clustering_coefficient'
     f2.write('clustering_coefficient\n')
     f2.write('{}\n'.format(g2.get_clustering_coefficient()))
+    f2.write('individual clustering_coefficient\n')
+    for i, v in enumerate(g2.nodes):
+        f2.write('{} {}\n'.format(i, v.clustering_coefficient))
 
     print '2 average_path_length'
     f2.write('average_path_length\n')
     f2.write('{}\n'.format(g2.get_average_path_length()))
     f2.close()
-    
+
     # print '1 average_path_length'
     # f1.write('average_path_length\n')
     # f1.write('{}\n'.format(g1.get_average_path_length()))
