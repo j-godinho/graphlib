@@ -97,10 +97,10 @@ class graph(object):
             for i in range(num_nodes):
                 for j in range(i, num_nodes):
                     if i != j:
-                        if(adj[i][j] == 1):
-                            num_pairs += 1
-                            total_length += dist[i][j]
-            self.average_path_length = float(total_length) / float(num_pairs)
+                        num_pairs += 1
+                        total_length += dist[i][j]
+            print ("total_length: ", total_length, num_pairs)
+            self.average_path_length = float(total_length) / num_pairs
             return self.average_path_length
 
 
