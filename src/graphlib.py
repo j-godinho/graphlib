@@ -304,54 +304,30 @@ def generate_minimal(num_initial_nodes, num_nodes):
     e = []
     g = graph()
 
-    # g.nodes.append( node( 'node 0' ) )
-    # for i in range(1, num_initial_nodes - 1):
-    #     n = node( 'node {}'.format(i) )
-    #     for index, node in enumarate(g.nodes):
-    #         ed = edge(i, index)
-    #         node.edges.append( ed )
-    #         n.edges.append( ed )
-    #     g.nodes.append( n )
-
-
-    if num_initial_nodes == 2:
-        g.nodes.append( node( 'node 0' ) )
-        g.nodes.append( node( 'node 1' ) )
-        aux_edge = edge(0, 1)
-        g.nodes[0].edges.append( aux_edge )
-        g.nodes[1].edges.append( aux_edge )
-        e.append(aux_edge)
-    elif num_initial_nodes == 3:
-        g.nodes.append( node( 'node 0' ) )
-        g.nodes.append( node( 'node 1' ) )
-        aux_edge = edge(0, 1)
-        g.nodes[0].edges.append( aux_edge )
-        g.nodes[1].edges.append( aux_edge )
-        e.append(aux_edge)
-        g.nodes.append( node( 'node 2' ) )
-        aux_edge = edge(0, 2)
-        g.nodes[0].edges.append( aux_edge )
-        g.nodes[2].edges.append( aux_edge )
-        e.append(aux_edge)
-        aux_edge = edge(1, 2)
-        g.nodes[1].edges.append( aux_edge )
-        g.nodes[2].edges.append( aux_edge )
-        e.append(aux_edge)
+    g.nodes.append( node( 'node 0' ) )
+    for i in range(1, num_initial_nodes):
+        n = node( 'node {}'.format(i) )
+        for index, nod in enumerate(g.nodes):
+            ed = edge(i, index)
+            nod.edges.append( ed )
+            n.edges.append( ed )
+            e.append(ed)
+        g.nodes.append( n )
 
     for i in range(num_nodes - num_initial_nodes):
         r = random.randint(0, len(e)-1)
         g.nodes.append( node( 'node {}'.format(i + num_initial_nodes) ) )
-        g.nodes[i + num_initial_nodes].edges.append( edge(i + num_initial_nodes, e[r].source) )
-        g.nodes[e[r].source].edges.append( edge(i + num_initial_nodes, e[r].source) )
-        g.nodes[i + num_initial_nodes].edges.append( edge(i + num_initial_nodes, e[r].target) )
-        g.nodes[e[r].target].edges.append( edge(i + num_initial_nodes, e[r].target) )
+        ed = edge(i + num_initial_nodes, e[r].source)
+        g.nodes[i + num_initial_nodes].edges.append( ed )
+        g.nodes[e[r].source].edges.append( ed )
+        e.append(ed)
+        ed = edge(i + num_initial_nodes, e[r].target)
+        g.nodes[i + num_initial_nodes].edges.append( ed )
+        g.nodes[e[r].target].edges.append( ed )
+        e.append(ed)
     return g
 
 def main():
-    g = generate_minimal(2, 3)
-
-    print g.get_adjacency_matrix()
-
     f31 = open('f1.txt', "w")
     f35 = open('f5.txt', "w")
 
