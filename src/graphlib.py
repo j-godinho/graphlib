@@ -287,7 +287,7 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
     g.adjacency_matrix = adj
     return g
 
-def generate_minimal(num_initial_nodes, num_nodes):
+def generate_minimal_graph(num_initial_nodes, num_nodes):
     e = []
     g = graph()
 
@@ -319,7 +319,7 @@ def main():
     f35 = open('f5.txt', "w")
 
     print 'generated 3-1000'
-    g1 = generate_minimal(3, 1000)
+    g1 = generate_minimal_graph(3, 1000)
     print 'generated 3-5000'
     g2 = generate_random_graph(3, 5000)
 
