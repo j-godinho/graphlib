@@ -257,39 +257,6 @@ def generate_random_graph(num_nodes, prob):
     g.adjacency_matrix = adj
     return g
 
-def generate_barabasi_albert_graph(m0, links, num_nodes):
-    adj = [[0 for i in range(num_nodes+m0)] for j in range(num_nodes+m0)]
-    g = graph()
-
-    for i in range(num_nodes+m0):
-        label = "node {}".format(i)
-        g.nodes.append( node(label) )
-
-    for i in range(m0):
-        index = random.randint(0, m0-1)
-        while (index == i and adj[i][index]==1):
-            index = random.randint(0, m0-1)
-        g.nodes[i].edges.append( edge(i, index))
-        g.nodes[index].edges.append( edge(i, index))
-        adj[i][index] = 1
-        adj[index][i] = 1
-
-    nodes_added = 0
-    for i in range(num_nodes):
-        rand_nums = []
-        for k in range (links):
-            value = random.randint(0, m0+nodes_added-1)
-            while(value in rand_nums):
-                value = random.randint(0, m0 + nodes_added-1)
-            g.nodes[m0+i].edges.append(edge(m0+i, value))
-            g.nodes[value].edges.append(edge(m0+i, value))
-            rand_nums.append(value)
-            adj[m0 + i][value] = 1
-            adj[value][m0 + i] = 1
-        nodes_added+=1
-    g.adjacency_matrix = adj
-    return g
-
 def generate_minimal_graph(num_initial_nodes, num_nodes):
     e = []
     g = graph()
