@@ -334,7 +334,7 @@ def main():
     print 'generated 3-1000'
     g1 = generate_minimal(3, 1000)
     print 'generated 3-5000'
-    g2 = generate_random_graph(3, 5000)
+    g2 = generate_minimal(3, 5000)
 
     print '1 degree_distribution'
     f31.write('degree_distribution\n')

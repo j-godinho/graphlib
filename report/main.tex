@@ -1,9 +1,11 @@
 \documentclass[a4paper,titlepage,11pt]{article}
 
+\usepackage[top=2.54cm, bottom=2.54cm, left=2.54cm, right=2.54cm]{geometry}
 \usepackage[utf8x]{inputenc}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{multicol}
 
 \begin{document}
 
@@ -123,12 +125,28 @@ Because of that we advise the use of the \textit{get} methods for each variable.
 
 \section{Results}
 \subsection{Dataset}
-\subsubsection{adjnoun.gml}
+\subsubsection{power.gml}
 \textbf{Degree Distribution}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.50]{img/dd-dataset.png}
+\end{figure}
+
+\textbf{Comulative Degree Distribution}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.50]{img/cdd-dataset.png}
+\end{figure}
 
 \textbf{Clustering Coefficient}
 
+0,0801036110816
+
 \textbf{Average Path Length}
+
+18.9891854244
 
 
 \subsubsection{Properties}
@@ -150,6 +168,40 @@ Because of that we advise the use of the \textit{get} methods for each variable.
 \]
 
 \subsection{Random Graph}
+\textbf{Degree Distribution}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.50]{img/dd-1000-0.05.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.50]{img/dd-5000-0.05.png}
+\end{figure}
+
+\textbf{Comulative Degree Distribution}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.50]{img/cdd-1000-0.05.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.50]{img/cdd-5000-0.05.png}
+\end{figure}
+
+\textbf{Clustering Coefficient}
+
+0,0489560526611
+
+0,0500573403275
+
+\textbf{Average Path Length}
+2.03192392392
+
+1,94997655531
 
 
 \subsubsection{Properties}
@@ -166,11 +218,49 @@ Because of that we advise the use of the \textit{get} methods for each variable.
   APL = \langle L\rangle \simeq \frac{\ln{N}}{\ln{k}}
 \]
 
+\subsection{Minimal Graph}
+\textbf{Degree Distribution}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.50]{img/dd-minimal-3-1000.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.50]{img/dd-minimal-3-5000.png}
+\end{figure}
+
+\textbf{Comulative Degree Distribution}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.50]{img/cdd-minimal-3-1000.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.50]{img/cdd-minimal-3-5000.png}
+\end{figure}
+
+\textbf{Clustering Coefficient}
+
+0,74002881762
+
+---
+
+\textbf{Average Path Length}
+
+4.71825625626
+
+---
+
 \section{Reference}
 \begin{description}
   \item[Python] \href{https://www.python.org}{www.python.org}
   \item[networkx] \href{https://networkx.github.io}{networkx.github.io}
   \item[Lecture Slides]
+  \item[Power Dataset] \href{https://github.com/gephi/gephi/wiki/Datasets#infrastructure-networks}{github.com/gephi/gephi/wiki/Datasets#infrastructure-networks}
   \item[The Barabási-Albert Model] \href{http://barabasilab.neu.edu/networksciencebook/download/network_science_december_ch5_2013.pdf}{barabasilab.neu.edu/networksciencebook/download/network_science_december_ch5_2013.pdf}
 \end{description}
 
