@@ -4,6 +4,7 @@
 import networkx as nx
 import random
 from Queue import Queue
+import sys
 class graph(object):
     """
     graph class
@@ -97,7 +98,7 @@ class graph(object):
             for i in range(num_nodes):
                 for j in range(i, num_nodes):
                     if i != j:
-                        if(dist[i][j]<99999):
+                        if(dist[i][j]!=sys.maxint):
                             num_pairs += 1
                             total_length += dist[i][j]
             self.average_path_length = float(total_length) / num_pairs
@@ -195,7 +196,7 @@ class edge(object):
 
 def floyd_warshall(adj):
     num_nodes = len(adj)
-    dist = [[999999 for i in range(num_nodes)] for j in range(num_nodes)]
+    dist = [[sys.maxint for i in range(num_nodes)] for j in range(num_nodes)]
 
     for  i in range(num_nodes):
        dist[i][i] = 0
@@ -208,8 +209,9 @@ def floyd_warshall(adj):
     for k in range(num_nodes):
         for i in range(num_nodes):
             for j in range(num_nodes):
-                if(dist[i][j] > dist[i][k]+dist[k][j]):
-                    dist[i][j] = dist[i][k] + dist[k][j]
+                if(dist[i][k]!=sys.maxint and dist[k][j]!=sys.maxint):
+                    if(dist[i][j] > dist[i][k]+dist[k][j]):
+                        dist[i][j] = dist[i][k] + dist[k][j]
 
     return dist
 
@@ -380,6 +382,8 @@ def main():
     f35.write('average_path_length\n')
     f35.write('{}\n'.format(g2.get_average_path_length()))
     f35.close()
+
+
 
 if __name__ == '__main__':
     main()
