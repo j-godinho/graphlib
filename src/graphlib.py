@@ -4,6 +4,7 @@
 import networkx as nx
 import random
 from Queue import Queue
+import sys
 class graph(object):
     """
     graph class
@@ -65,24 +66,12 @@ class graph(object):
             return self.max_node_degree
 
     def calc_node_degrees(self):
+        total = 0
         for node in self.nodes:
-            node.get_node_degree()
+            total += node.get_node_degree()
 
-    # def get_average_path_length(self):
-    #     if hasattr(self, 'average_path_length'):
-    #         return self.average_path_length
-    #     else:
-    #         num_nodes = len(self.nodes)
-    #         num_pairs = 0
-    #         total_length = 0
-    #         adj = self.get_adjacency_matrix()
-    #         for i in range(num_nodes):
-    #             for j in range(i, num_nodes):
-    #                 if i != j:
-    #                     num_pairs += 1
-    #                     total_length += bfs(adj, i, j)
-    #         self.average_path_length = float(total_length) / float(num_pairs)
-    #         return self.average_path_length
+        return float(total)/len(self.nodes)
+
 
     def get_average_path_length(self):
         if hasattr(self, 'average_path_length'):
@@ -97,7 +86,7 @@ class graph(object):
             for i in range(num_nodes):
                 for j in range(i, num_nodes):
                     if i != j:
-                        if(dist[i][j]<99999):
+                        if(dist[i][j]!=sys.maxint):
                             num_pairs += 1
                             total_length += dist[i][j]
             self.average_path_length = float(total_length) / num_pairs
@@ -195,7 +184,7 @@ class edge(object):
 
 def floyd_warshall(adj):
     num_nodes = len(adj)
-    dist = [[999999 for i in range(num_nodes)] for j in range(num_nodes)]
+    dist = [[sys.maxint for i in range(num_nodes)] for j in range(num_nodes)]
 
     for  i in range(num_nodes):
        dist[i][i] = 0
@@ -208,8 +197,9 @@ def floyd_warshall(adj):
     for k in range(num_nodes):
         for i in range(num_nodes):
             for j in range(num_nodes):
-                if(dist[i][j] > dist[i][k]+dist[k][j]):
-                    dist[i][j] = dist[i][k] + dist[k][j]
+                if(dist[i][k]!=sys.maxint and dist[k][j]!=sys.maxint):
+                    if(dist[i][j] > dist[i][k]+dist[k][j]):
+                        dist[i][j] = dist[i][k] + dist[k][j]
 
     return dist
 
@@ -300,7 +290,7 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
     g.adjacency_matrix = adj
     return g
 
-def generate_minimal(num_initial_nodes, num_nodes):
+def generate_minimal_graph(num_initial_nodes, num_nodes):
     e = []
     g = graph()
 
@@ -329,7 +319,6 @@ def generate_minimal(num_initial_nodes, num_nodes):
 
 def main():
     f31 = open('f1.txt', "w")
-    f35 = open('f5.txt', "w")
 
     print 'generated 3-1000'
     g1 = generate_minimal(3, 1000)
@@ -353,33 +342,14 @@ def main():
     for i, v in enumerate(g1.nodes):
         f31.write('{} {}\n'.format(i, v.clustering_coefficient))
 
+    print g1.calc_node_degrees()
 
     print '1 average_path_length'
     f31.write('average_path_length\n')
     f31.write('{}\n'.format(g1.get_average_path_length()))
+
     f31.close()
 
-    print '2 degree_distribution'
-    f35.write('degree_distribution\n')
-    for i, v in enumerate(g2.get_degree_distribution()):
-        f35.write('{} {}\n'.format(i, v))
-
-    print '2 cumulative_degree_distribution'
-    f35.write('cumulative_degree_distribution\n')
-    for i, v in enumerate(g2.get_cumulative_degree_distribution()):
-        f35.write('{} {}\n'.format(i, v))
-
-    print '2 clustering_coefficient'
-    f35.write('clustering_coefficient\n')
-    f35.write('{}\n'.format(g2.get_clustering_coefficient()))
-    f35.write('individual clustering_coefficient\n')
-    for i, v in enumerate(g2.nodes):
-        f35.write('{} {}\n'.format(i, v.clustering_coefficient))
-
-    print '2 average_path_length'
-    f35.write('average_path_length\n')
-    f35.write('{}\n'.format(g2.get_average_path_length()))
-    f35.close()
 
 if __name__ == '__main__':
     main()

@@ -1,4 +1,5 @@
 degree_distribution
+<<<<<<< HEAD
 0,0
 0,0
 0,506
@@ -1217,3 +1218,25 @@ individual clustering_coefficient
 1,0
 average_path_length
 4.71825625626
+=======
+0 0.0
+1 0.5
+2 0.333333333333
+3 0.166666666667
+cumulative_degree_distribution
+0 1.0
+1 1.0
+2 0.5
+3 0.166666666667
+clustering_coefficient
+0.0
+individual clustering_coefficient
+0 0.0
+1 0
+2 0
+3 0.0
+4 0.0
+5 0
+average_path_length
+2.13333333333
+>>>>>>> 3aebb774396a7cddfa2f56d8bf83bf0e687b1922
