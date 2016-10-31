@@ -143,6 +143,7 @@ class graph(object):
                 edges = node.edges
                 for edge in edges:
                     self.adjacency_matrix[ edge.source ][ edge.target ] = 1
+                    self.adjacency_matrix[ edge.target ][ edge.source ] = 1
             return self.adjacency_matrix
 
 
@@ -299,127 +300,122 @@ def generate_barabasi_albert_graph(m0, links, num_nodes):
     g.adjacency_matrix = adj
     return g
 
+def generate_minimal(num_initial_nodes, num_nodes):
+    e = []
+    g = graph()
+
+    if num_initial_nodes == 2:
+        g.nodes.append( node( 'node 0' ) )
+        g.nodes.append( node( 'node 1' ) )
+        aux_edge = edge(0, 1)
+        g.nodes[0].edges.append( aux_edge )
+        g.nodes[1].edges.append( aux_edge )
+        e.append(aux_edge)
+    elif num_initial_nodes == 3:
+        g.nodes.append( node( 'node 0' ) )
+        g.nodes.append( node( 'node 1' ) )
+        aux_edge = edge(0, 1)
+        g.nodes[0].edges.append( aux_edge )
+        g.nodes[1].edges.append( aux_edge )
+        e.append(aux_edge)
+        g.nodes.append( node( 'node 2' ) )
+        aux_edge = edge(0, 2)
+        g.nodes[0].edges.append( aux_edge )
+        g.nodes[2].edges.append( aux_edge )
+        e.append(aux_edge)
+        aux_edge = edge(1, 2)
+        g.nodes[1].edges.append( aux_edge )
+        g.nodes[2].edges.append( aux_edge )
+        e.append(aux_edge)
+
+    for i in range(num_nodes - num_initial_nodes):
+        r = random.randint(0, len(e))
+        g.nodes.append( node( 'node {}'.format(i + num_initial_nodes) ) )
+        g.nodes[i + num_initial_nodes].edges.append( edge(i + num_initial_nodes, edges[r].source) )
+        g.nodes[edges[r].source].edges.append( edge(i + num_initial_nodes, edges[r].source) )
+        g.nodes[i + num_initial_nodes].edges.append( edge(i + num_initial_nodes, edges[r].target) )
+        g.nodes[edges[r].target].edges.append( edge(i + num_initial_nodes, edges[r].target) )
+    return g
 
 def main():
-    f1 = open('f1.txt', "w")
-    f2 = open('f2.txt', "w")
-    f3 = open('f3.txt', "w")
+    g = generate_minimal(2, 3)
 
-    print 'generated 1'
-    g1 = generate_random_graph(1000, 0.05)
-    print 'generated 2'
-    g2 = generate_random_graph(5000, 0.05)
+    print g.get_adjacency_matrix()
 
-    print 'generated 3'
-    g3 = read_file('input/power.gml')
-
-    print '1 degree_distribution'
-    f1.write('degree_distribution\n')
-    for i, v in enumerate(g1.get_degree_distribution()):
-        f1.write('{} {}\n'.format(i, v))
-
-    print '1 cumulative_degree_distribution'
-    f1.write('cumulative_degree_distribution\n')
-    for i, v in enumerate(g1.get_cumulative_degree_distribution()):
-        f1.write('{} {}\n'.format(i, v))
-
-    print '1 clustering_coefficient'
-    f1.write('clustering_coefficient\n')
-    f1.write('{}\n'.format(g1.get_clustering_coefficient()))
-    f1.write('individual clustering_coefficient\n')
-    for i, v in enumerate(g1.nodes):
-        f1.write('{} {}\n'.format(i, v.clustering_coefficient))
-
-
-    print '1 average_path_length'
-    f1.write('average_path_length\n')
-    f1.write('{}\n'.format(g1.get_average_path_length()))
-    f1.close()
-
-    print '2 degree_distribution'
-    f2.write('degree_distribution\n')
-    for i, v in enumerate(g2.get_degree_distribution()):
-        f2.write('{} {}\n'.format(i, v))
-
-    print '2 cumulative_degree_distribution'
-    f2.write('cumulative_degree_distribution\n')
-    for i, v in enumerate(g2.get_cumulative_degree_distribution()):
-        f2.write('{} {}\n'.format(i, v))
-
-    print '2 clustering_coefficient'
-    f2.write('clustering_coefficient\n')
-    f2.write('{}\n'.format(g2.get_clustering_coefficient()))
-    f2.write('individual clustering_coefficient\n')
-    for i, v in enumerate(g2.nodes):
-        f2.write('{} {}\n'.format(i, v.clustering_coefficient))
-
-    print '2 average_path_length'
-    f2.write('average_path_length\n')
-    f2.write('{}\n'.format(g2.get_average_path_length()))
-    f2.close()
-
-
-
-    print '3 degree_distribution'
-    f3.write('degree_distribution\n')
-    for i, v in enumerate(g3.get_degree_distribution()):
-        f3.write('{} {}\n'.format(i, v))
-
-    print '3 cumulative_degree_distribution'
-    f3.write('cumulative_degree_distribution\n')
-    for i, v in enumerate(g3.get_cumulative_degree_distribution()):
-        f3.write('{} {}\n'.format(i, v))
-
-    print '3 clustering_coefficient'
-    f3.write('clustering_coefficient\n')
-    f3.write('{}\n'.format(g3.get_clustering_coefficient()))
-    f3.write('individual clustering_coefficient\n')
-    for i, v in enumerate(g3.nodes):
-        f2.write('{} {}\n'.format(i, v.clustering_coefficient))
-
-    print '3 average_path_length'
-    f3.write('average_path_length\n')
-    f3.write('{}\n'.format(g3.get_average_path_length()))
-    f3.close()
-
+    # f1 = open('f1.txt', "w")
+    # f2 = open('f2.txt', "w")
+    # f3 = open('f3.txt', "w")
+    #
+    # print 'generated 1'
+    # g1 = generate_random_graph(1000, 0.05)
+    # print 'generated 2'
+    # g2 = generate_random_graph(5000, 0.05)
+    #
+    # print 'generated 3'
+    # g3 = read_file('input/power.gml')
+    #
+    # print '1 degree_distribution'
+    # f1.write('degree_distribution\n')
+    # for i, v in enumerate(g1.get_degree_distribution()):
+    #     f1.write('{} {}\n'.format(i, v))
+    #
+    # print '1 cumulative_degree_distribution'
+    # f1.write('cumulative_degree_distribution\n')
+    # for i, v in enumerate(g1.get_cumulative_degree_distribution()):
+    #     f1.write('{} {}\n'.format(i, v))
+    #
+    # print '1 clustering_coefficient'
+    # f1.write('clustering_coefficient\n')
+    # f1.write('{}\n'.format(g1.get_clustering_coefficient()))
+    # f1.write('individual clustering_coefficient\n')
+    # for i, v in enumerate(g1.nodes):
+    #     f1.write('{} {}\n'.format(i, v.clustering_coefficient))
+    #
+    #
     # print '1 average_path_length'
     # f1.write('average_path_length\n')
     # f1.write('{}\n'.format(g1.get_average_path_length()))
     # f1.close()
-
+    #
     # print '2 degree_distribution'
     # f2.write('degree_distribution\n')
     # for i, v in enumerate(g2.get_degree_distribution()):
-    #    f2.write('{} {}\n'.format(i, v))
-
+    #     f2.write('{} {}\n'.format(i, v))
+    #
     # print '2 cumulative_degree_distribution'
     # f2.write('cumulative_degree_distribution\n')
     # for i, v in enumerate(g2.get_cumulative_degree_distribution()):
     #     f2.write('{} {}\n'.format(i, v))
-
+    #
     # print '2 clustering_coefficient'
     # f2.write('clustering_coefficient\n')
     # f2.write('{}\n'.format(g2.get_clustering_coefficient()))
-
+    # f2.write('individual clustering_coefficient\n')
+    # for i, v in enumerate(g2.nodes):
+    #     f2.write('{} {}\n'.format(i, v.clustering_coefficient))
+    #
     # print '2 average_path_length'
     # f2.write('average_path_length\n')
     # f2.write('{}\n'.format(g2.get_average_path_length()))
     # f2.close()
-
+    #
     # print '3 degree_distribution'
     # f3.write('degree_distribution\n')
     # for i, v in enumerate(g3.get_degree_distribution()):
     #     f3.write('{} {}\n'.format(i, v))
-
+    #
     # print '3 cumulative_degree_distribution'
     # f3.write('cumulative_degree_distribution\n')
     # for i, v in enumerate(g3.get_cumulative_degree_distribution()):
     #     f3.write('{} {}\n'.format(i, v))
-
+    #
     # print '3 clustering_coefficient'
     # f3.write('clustering_coefficient\n')
     # f3.write('{}\n'.format(g3.get_clustering_coefficient()))
-
+    # f3.write('individual clustering_coefficient\n')
+    # for i, v in enumerate(g3.nodes):
+    #     f2.write('{} {}\n'.format(i, v.clustering_coefficient))
+    #
     # print '3 average_path_length'
     # f3.write('average_path_length\n')
     # f3.write('{}\n'.format(g3.get_average_path_length()))
