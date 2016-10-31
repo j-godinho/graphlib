@@ -26,9 +26,9 @@
     {\itshape \Large Group 6 \par}
     \vfill
 
-    \begin{tabular}{l l l}
-      \includegraphics[width=15mm, height=15mm]{img/bernardo.jpeg} & Bernardo Casaleiro & 87827\\
-      \includegraphics[width=15mm, height=15mm]{img/joao.jpeg} & João Godinho & 87830\\
+    \begin{tabular}{l l}
+      Bernardo Casaleiro & 87827\\
+      João Godinho & 87830\\
     \end{tabular}
     \vfill
 
@@ -124,88 +124,67 @@ Because of that we advise the use of the \textit{get} methods for each variable.
 
 \end{description}
 
+\newpage
+
 \section{Results}
 \subsection{Dataset}
 \subsubsection{power.gml}
 Network representing the topology of the Western States Power Grid of the United States.
 
-\textbf{Degree Distribution}
-
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.50]{img/dd-dataset.png}
-\end{figure}
-
-\textbf{Comulative Degree Distribution}
-
-\begin{figure}[h]
-    \centering
     \includegraphics[scale=0.50]{img/cdd-dataset.png}
 \end{figure}
 
-\textbf{Clustering Coefficient}
+\begin{multicols}{2}
 
-0,0801036110816
+  \textbf{Clustering Coefficient}
 
-\textbf{Average Path Length}
+  0,08010
 
-18.9891854244
+\columnbreak
+
+  \textbf{Average Path Length}
+
+  18,98918
 
 
-\subsubsection{Properties}
-\textbf{Degree Distribution}
-\[
-  P_k = \frac{N_k}{N} = \frac{1}{N}\sum_{i}{\delta(k_i-k)}
-\]
-\textbf{Clustering Coefficient}
-\[
-  C_i = \frac{\#\; edges\; among\; neigs}{max\; \# \; edges\; among \; neigs} = \frac{e_i}{k_i(k_i-1)/2}
-\]
-
-\[
-  \langle C\rangle = \frac{1}{N}\sum_{i}{C_i}
-\]
-\textbf{Average Path Length}
-\[
-  \langle L\rangle = \frac{1}{N(N-1)}\sum_{ik}{L_{ik}}
-\]
+\end{multicols}
 
 \subsection{Random Graph}
-\textbf{Degree Distribution}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.50]{img/dd-1000-0.05.png}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.50]{img/dd-5000-0.05.png}
+    \includegraphics[scale=0.50]{img/dd-1000-05.png}
+    \includegraphics[scale=0.50]{img/dd-5000-05.png}
 \end{figure}
 
 \textbf{Comulative Degree Distribution}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.50]{img/cdd-1000-0.05.png}
+    \includegraphics[scale=0.50]{img/cdd-1000-05.png}
+    \includegraphics[scale=0.50]{img/cdd-5000-05.png}
 \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.50]{img/cdd-5000-0.05.png}
-\end{figure}
+\begin{multicols}{2}
 
-\textbf{Clustering Coefficient}
+  \textbf{Clustering Coefficient}
 
-0,0489560526611
+  \textbf{(nodes=1000,p=0.05)} 0,04895
 
-0,0500573403275
+  \textbf{(nodes=5000,p=0.05)} 0,05005
 
-\textbf{Average Path Length}
-2.03192392392
+\columnbreak
 
-1,94997655531
+  \textbf{Average Path Length}
 
+  \textbf{(nodes=1000,p=0.05)} 2,03192
+
+  \textbf{(nodes=5000,p=0.05)} 1,94997
+
+\end{multicols}
 
 \subsubsection{Properties}
 \textbf{Degree Distribution}
@@ -227,10 +206,6 @@ Network representing the topology of the Western States Power Grid of the United
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.50]{img/dd-minimal-3-1000.png}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
     \includegraphics[scale=0.50]{img/dd-minimal-3-5000.png}
 \end{figure}
 
@@ -239,24 +214,26 @@ Network representing the topology of the Western States Power Grid of the United
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.50]{img/cdd-minimal-3-1000.png}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
     \includegraphics[scale=0.50]{img/cdd-minimal-3-5000.png}
 \end{figure}
 
-\textbf{Clustering Coefficient}
+\begin{multicols}{2}
 
-0,74002881762
+  \textbf{Clustering Coefficient}
 
----
+  \textbf{(initial=3,nodes=1000)} 0,74002
 
-\textbf{Average Path Length}
+  \textbf{(initial=3,nodes=5000)} ---
 
-4.71825625626
+\columnbreak
 
----
+  \textbf{Average Path Length}
+
+  \textbf{(initial=3,nodes=1000)} 4,71825
+
+  \textbf{(initial=3,nodes=5000)} ---
+
+\end{multicols}
 
 \section{Conclusion and Data Analysis}
 When gathering the results we noticed that it was taking too long to calculate the average path length for bigger graphs (number of nodes > 1000), so we changed the algorithm to find the shortest path. Even though we know that Bfs has a time complexity of O(N²), for finding all the shortest distances on a graph it's better to use an algorithm such as Floyd Warshall, which has a higher time complexity (O(N³)) but computes all the distances at once.
@@ -269,7 +246,7 @@ Analysing the random graph properties we can conclude that all the tests had the
   \item[Python] \href{https://www.python.org}{www.python.org}
   \item[networkx] \href{https://networkx.github.io}{networkx.github.io}
   \item[Lecture Slides]
-  \item[Power Dataset] \href{https://github.com/gephi/gephi/wiki/Datasets#infrastructure-networks}{github.com/gephi/gephi/wiki/Datasets#infrastructure-networks}
+  \item[Power Dataset] \href{https://github.com/gephi/gephi/wiki/Datasets#infrastructure-networks}{github.com/gephi/gephi/wiki/Datasets\#infrastructure-networks}
   % \item[The Barabási-Albert Model] \href{http://barabasilab.neu.edu/networksciencebook/download/network_science_december_ch5_2013.pdf}{barabasilab.neu.edu/networksciencebook\\/download/network\_science\_december\_ch5\_2013.pdf}
 \end{description}
 
