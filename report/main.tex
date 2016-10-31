@@ -124,7 +124,9 @@ Because of that we advise the use of the \textit{get} methods for each variable.
 
 \section{Results}
 \subsection{Dataset}
-\subsubsection{adjnoun.gml}
+\subsubsection{power.gml}
+	Network representing the topology of the Western States Power Grid of the United States.
+
 \textbf{Degree Distribution}
 
 \textbf{Clustering Coefficient}
@@ -167,7 +169,7 @@ Because of that we advise the use of the \textit{get} methods for each variable.
   APL = \langle L\rangle \simeq \frac{\ln{N}}{\ln{\langle k\rangle}}
 \]
 
-\section{Conclusion}
+\section{Conclusion and Data Analysis}
 When gathering the results we noticed that it was taking too long to calculate the average path length for bigger graphs (number of nodes > 1000), so we changed the algorithm to find the shortest path. Even though we know that Bfs has a time complexity of O(N²), for finding all the shortest distances on a graph it's better to use an algorithm such as Floyd Warshall, which has a higher time complexity (O(N³)) but computes all the distances at once.
 
 Analysing the random graph properties we can conclude that all the tests had the correct clustering coefficient, because it should be the same as the probability of linking two nodes.
@@ -177,7 +179,7 @@ Analysing the random graph properties we can conclude that all the tests had the
   \item[Python] \href{https://www.python.org}{www.python.org}
   \item[networkx] \href{https://networkx.github.io}{networkx.github.io}
   \item[Lecture Slides]
-  \item[The Barabási-Albert Model] \href{http://barabasilab.neu.edu/networksciencebook/download/network_science_december_ch5_2013.pdf}{barabasilab.neu.edu/networksciencebook/download/network\_science\_december\_ch5\_2013.pdf}
+  \item[The Barabási-Albert Model] \href{http://barabasilab.neu.edu/networksciencebook/download/network_science_december_ch5_2013.pdf}{barabasilab.neu.edu/networksciencebook\\/download/network\_science\_december\_ch5\_2013.pdf}
 \end{description}
 
 \end{document}
