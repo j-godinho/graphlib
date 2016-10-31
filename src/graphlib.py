@@ -66,8 +66,11 @@ class graph(object):
             return self.max_node_degree
 
     def calc_node_degrees(self):
+        total = 0
         for node in self.nodes:
-            node.get_node_degree()
+            total += node.get_node_degree()
+
+        return float(total)/len(self.nodes)
 
 
     def get_average_path_length(self):
@@ -316,12 +319,9 @@ def generate_minimal_graph(num_initial_nodes, num_nodes):
 
 def main():
     f31 = open('f1.txt', "w")
-    f35 = open('f5.txt', "w")
 
     print 'generated 3-1000'
-    g1 = generate_minimal_graph(3, 1000)
-    print 'generated 3-5000'
-    g2 = generate_random_graph(3, 5000)
+    g1 = generate_random_graph(500 ,0.05)
 
     print '1 degree_distribution'
     f31.write('degree_distribution\n')
@@ -340,34 +340,13 @@ def main():
     for i, v in enumerate(g1.nodes):
         f31.write('{} {}\n'.format(i, v.clustering_coefficient))
 
+    print g1.calc_node_degrees()
 
     print '1 average_path_length'
     f31.write('average_path_length\n')
     f31.write('{}\n'.format(g1.get_average_path_length()))
+
     f31.close()
-
-    print '2 degree_distribution'
-    f35.write('degree_distribution\n')
-    for i, v in enumerate(g2.get_degree_distribution()):
-        f35.write('{} {}\n'.format(i, v))
-
-    print '2 cumulative_degree_distribution'
-    f35.write('cumulative_degree_distribution\n')
-    for i, v in enumerate(g2.get_cumulative_degree_distribution()):
-        f35.write('{} {}\n'.format(i, v))
-
-    print '2 clustering_coefficient'
-    f35.write('clustering_coefficient\n')
-    f35.write('{}\n'.format(g2.get_clustering_coefficient()))
-    f35.write('individual clustering_coefficient\n')
-    for i, v in enumerate(g2.nodes):
-        f35.write('{} {}\n'.format(i, v.clustering_coefficient))
-
-    print '2 average_path_length'
-    f35.write('average_path_length\n')
-    f35.write('{}\n'.format(g2.get_average_path_length()))
-    f35.close()
-
 
 
 if __name__ == '__main__':
