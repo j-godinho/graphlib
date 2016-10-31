@@ -69,21 +69,6 @@ class graph(object):
         for node in self.nodes:
             node.get_node_degree()
 
-    # def get_average_path_length(self):
-    #     if hasattr(self, 'average_path_length'):
-    #         return self.average_path_length
-    #     else:
-    #         num_nodes = len(self.nodes)
-    #         num_pairs = 0
-    #         total_length = 0
-    #         adj = self.get_adjacency_matrix()
-    #         for i in range(num_nodes):
-    #             for j in range(i, num_nodes):
-    #                 if i != j:
-    #                     num_pairs += 1
-    #                     total_length += bfs(adj, i, j)
-    #         self.average_path_length = float(total_length) / float(num_pairs)
-    #         return self.average_path_length
 
     def get_average_path_length(self):
         if hasattr(self, 'average_path_length'):
