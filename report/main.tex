@@ -236,9 +236,13 @@ Network representing the topology of the Western States Power Grid of the United
 \end{multicols}
 
 \section{Conclusion and Data Analysis}
-When gathering the results we noticed that it was taking too long to calculate the average path length for bigger graphs (number of nodes up from 1000), so we changed the algorithm to find the shortest path. Even though we know that Bfs has a time complexity of O(N²), for finding all the shortest distances on a graph it's better to use an algorithm such as Floyd Warshall, which has a higher time complexity (O(N³)) but computes all the distances at once.
+When gathering the results we noticed that it was taking too long to calculate the average path length for bigger graphs
+(number of nodes up from 1000), so we changed the algorithm to find the shortest path. Even though we know that Bfs has a
+time complexity of O(N²), for finding all the shortest distances on a graph it's better to use an algorithm such as Floyd Warshall,
+which has a higher time complexity (O(N³)) but computes all the distances at once.
 
-Analysing the random graph properties we can conclude that all the tests had the correct clustering coefficient, because it should be the same as the probability of linking two nodes which was 0,05.
+Analysing the random graph properties we can conclude that all the tests had the correct clustering coefficient, because it should
+be the same as the probability of linking two nodes which was 0,05.
 
 
 \section{Reference}
