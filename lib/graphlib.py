@@ -280,39 +280,3 @@ def generate_minimal_graph(num_initial_nodes, num_nodes):
         g.nodes[e[r].target].edges.append( ed )
         e.append(ed)
     return g
-
-def main():
-    f31 = open('f5.txt', "w")
-
-    print 'generated 3-5000'
-    g1 = generate_minimal_graph(3, 5000)
-
-    print '1 degree_distribution'
-    f31.write('degree_distribution\n')
-    for i, v in enumerate(g1.get_degree_distribution()):
-        f31.write('{} {}\n'.format(i, v))
-
-    print '1 cumulative_degree_distribution'
-    f31.write('cumulative_degree_distribution\n')
-    for i, v in enumerate(g1.get_cumulative_degree_distribution()):
-        f31.write('{} {}\n'.format(i, v))
-
-    print '1 clustering_coefficient'
-    f31.write('clustering_coefficient\n')
-    f31.write('{}\n'.format(g1.get_clustering_coefficient()))
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 1d9388c0e6d4d34c82fc315c20da0f9d72995987
-    print g1.calc_node_degrees()
-
-    print '1 average_path_length'
-    f31.write('average_path_length\n')
-    f31.write('{}\n'.format(g1.get_average_path_length()))
-
-    f31.close()
-
-
-if __name__ == '__main__':
-    main()
