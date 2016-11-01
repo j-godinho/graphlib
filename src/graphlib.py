@@ -18,8 +18,6 @@ class graph(object):
         get_clustering_coefficient(float): Returns the clustering coefficient of the graph.
     """
 
-    # TODO change the len(self.nodes) to a atribute
-
     def get_nodes(self):
         return self.nodes
 
@@ -81,7 +79,6 @@ class graph(object):
             num_pairs = 0
             total_length = 0
             adj = self.get_adjacency_matrix()
-            #get floyd warshall
             dist = floyd_warshall(adj)
             for i in range(num_nodes):
                 for j in range(i, num_nodes):
