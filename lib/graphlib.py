@@ -10,12 +10,25 @@ class graph(object):
     graph class
 
     Atributes:
-        nodes (array:node): List of all the nodes of the graph.
+        nodes (array:node): list of all the nodes of the graph.
+        adjacency_matrix (array:array:int): adjacency matrix of the graph.
+        degree_distribution (array:float): degree distribution of the graph.
+        cumulative_degree_distribution (array:float): cumulative degree distribution of the graph.
+        node_degree_histogram (array:int): node degree histogram of the graph.
+        max_node_degree (int): max node degree of the graph.
+        average_path_length (float): average path length of the graph.
+        clustering_coefficient (float): clustering coefficient of the graph
 
     Methods:
-        get_adjacency_matrix(array:(array:int)): Returns the adjacency matrix of the graph.
-        get_average_path_length(float): Returns the average path length of the graph.
-        get_clustering_coefficient(float): Returns the clustering coefficient of the graph.
+        get_nodes (array:node): returns the list of all nodes of the graph.
+        get_adjacency_matrix (array:array:int): returns the adjacency matrix of the graph.
+        get_degree_distribution (array:floats): returns the degree distribution of the graph.
+        get_cumulative_degree_distribution (array:floats): returns the cumulative degree distribution of the graph.
+        get_node_degree_histogram (array:int): returns the node degree histogram of the graph.
+        get_max_node_degree (int): returns the max node degree of the graph.
+        calc_node_degrees (float): calculates all the node degrees and returns the average node degree of the graph.
+        get_average_path_length (float): returns the average path length of the graph.
+        get_clustering_coefficient (float): returns the clustering coefficient of the graph.
     """
 
     def get_nodes(self):
@@ -141,8 +154,15 @@ class node(object):
     """
     node class
 
-    variable label holds the label of the node
-    variable edges holds all the node edges
+    Atributes:
+        label (string): label of the node
+        edges (array:edge): list all edges of the node
+        degree (int): node degree
+        clustering_coefficient (float): clustering coefficient of the node
+
+    Methods:
+        get_edges (array:edge): returns the list of all the node's edges
+        get_node_degree (int): returns the node degree
     """
 
     def get_edges(self):
@@ -164,8 +184,13 @@ class edge(object):
     """
     edge class
 
-    variable source holds the index of the source node
-    variable target holds the index of the target node
+    Atributes:
+        source (int): index of the source node in the graph list of nodes
+        target (int): index of the target node in the graph list of nodes
+
+    Methods:
+        get_source (int): returns the index of the source node in the graph list
+        get_target (int): returns the index of the target node in the graph list
     """
 
     def get_source(self):
