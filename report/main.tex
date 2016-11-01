@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{multicol}
+\usepackage{textcomp, xspace}
 
 \begin{document}
 
@@ -158,7 +159,8 @@ Network representing the topology of the Western States Power Grid of the United
     \centering
     \includegraphics[scale=0.50]{img/dd-1000-05.png}
     \includegraphics[scale=0.50]{img/dd-5000-05.png}
-\end{figure}
+\end{figure} 
+
 
 \textbf{Comulative Degree Distribution}
 
@@ -186,6 +188,17 @@ Network representing the topology of the Western States Power Grid of the United
 
 \end{multicols}
 
+\begin{center}
+
+  \textbf{Average degree: \textlangle k\textrangle}
+
+  \textbf{(nodes=1000,p=0.05)} 49.52800
+
+  \textbf{(nodes=5000,p=0.05)} 250.0884
+
+\end{center}
+
+
 \subsubsection{Properties}
 \textbf{Degree Distribution}
 \[
@@ -206,7 +219,8 @@ Network representing the topology of the Western States Power Grid of the United
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.50]{img/dd-minimal-3-1000.png}
-    \includegraphics[scale=0.50]{img/dd-minimal-3-5000.png}
+    %\includegraphics[scale=0.50]{img/dd-minimal-3-5000.png}
+    
 \end{figure}
 
 \textbf{Comulative Degree Distribution}
@@ -214,7 +228,8 @@ Network representing the topology of the Western States Power Grid of the United
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.50]{img/cdd-minimal-3-1000.png}
-    \includegraphics[scale=0.50]{img/cdd-minimal-3-5000.png}
+    %\includegraphics[scale=0.50]{img/cdd-minimal-3-5000.png}
+    
 \end{figure}
 
 \begin{multicols}{2}
@@ -235,6 +250,16 @@ Network representing the topology of the Western States Power Grid of the United
 
 \end{multicols}
 
+\begin{center}
+
+  \textbf{Average degree: \textlangle k\textrangle}
+
+  \textbf{(initial=3,nodes=1000)} 3.9940
+
+  \textbf{(initial=3,nodes=5000)} 3.9988
+
+\end{center}
+
 \section{Conclusion and Data Analysis}
 When gathering the results we noticed that it was taking too long to calculate the average path length for bigger graphs
 (number of nodes up from 1000), so we changed the algorithm to find the shortest path. Even though we know that Bfs has a
@@ -244,6 +269,11 @@ which has a higher time complexity (O(N³)) but computes all the distances at on
 Analysing the random graph properties we can conclude that all the tests had the correct clustering coefficient, because it should
 be the same as the probability of linking two nodes which was 0,05.
 
+The average path length is also very similar to the theorical result, since the theorical \textlangle k\textrangle for both random graphs are:
+$\frac{\ln1000}{\ln49.528}=1.77$ and $\frac{\ln5000}{\ln250.0884}=1.54$.
+Both results don't differ too much from the average path lengths (2.031 and 1.949 respectively) and we can explain the difference by the randomization and the reduced size of the graphs used (compared to big systems).
+
+Before implementing the minimal model we already knew that the theorical \textlangle k\textrangle was going to be aproximately 4. After the implementation and analysis we can confirm that result.
 
 \section{Reference}
 \begin{description}
