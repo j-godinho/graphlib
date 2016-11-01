@@ -282,7 +282,7 @@ def generate_minimal_graph(num_initial_nodes, num_nodes):
     return g
 
 def main():
-    f31 = open('f1.txt', "w")
+    f31 = open('f5.txt', "w")
 
     print 'generated 3-5000'
     g1 = generate_minimal_graph(3, 5000)
