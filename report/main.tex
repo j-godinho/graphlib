@@ -39,7 +39,7 @@
 
 \section{Introduction}
 As students coming from Computer Science we thought that the development of a small library for the third topic of the project would be interesting.
-So we developed a simple library that generates a graph. This can be done randomly, using the random model or the Barabási-Albert model, or as '.gml' file.
+So we developed a simple library that generates a graph. This can be done randomly, using the random model or the minimal model, or as '.gml' file.
 
 After the graph is obtained you can use the available graph class attributes and methods as described below.
 
@@ -54,6 +54,9 @@ In every method we first check if the graph has already that attribute set.
 If it doesn't it's calculated and loaded into the respective atribute. Otherwise the method simply returns the attribute.
 
 Because of that we advise the use of the \textit{get} methods for each variable.
+
+We made our library public, so feel free to take a look:
+\href{https://github.com/j-godinho/rc-project}{Github Link}
 
 \subsection*{Classes}
 \begin{description}
@@ -153,7 +156,7 @@ Network representing the topology of the Western States Power Grid of the United
 
 \end{multicols}
 
-\subsection{Random Graph}
+\subsection{Random Graph (1000 nodes / 5000 nodes)}
 
 \begin{figure}[h]
     \centering
@@ -213,7 +216,7 @@ Network representing the topology of the Western States Power Grid of the United
   APL = \langle L\rangle \simeq \frac{\ln{N}}{\ln{\langle k\rangle}}
 \]
 
-\subsection{Minimal Graph}
+\subsection{Minimal Graph (1000 nodes / 5000 nodes)}
 For the initialization we used a triangle and for the total node numbers 1000 and 5000.
 
 \textbf{Degree Distribution}
@@ -221,6 +224,7 @@ For the initialization we used a triangle and for the total node numbers 1000 an
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.50]{img/dd-minimal-3-1000.png}
+    \includegraphics[scale=0.50]{img/cdd-minimal-3-1000.png}
     %\includegraphics[scale=0.50]{img/dd-minimal-3-5000.png}
     
 \end{figure}
@@ -248,7 +252,7 @@ For the initialization we used a triangle and for the total node numbers 1000 an
 
   \textbf{(initial=3,nodes=1000)} 4,71825
 
-  \textbf{(initial=3,nodes=5000)} ---
+  \textbf{(initial=3,nodes=5000)} ()
 
 \end{multicols}
 
@@ -282,6 +286,7 @@ Before implementing the minimal model we already knew that the theorical average
   \item[networkx] \href{https://networkx.github.io}{networkx.github.io}
   \item[Lecture Slides]
   \item[Power Dataset] \href{https://github.com/gephi/gephi/wiki/Datasets#infrastructure-networks}{github.com/gephi/gephi/wiki/Datasets\#infrastructure-networks}
+
 \end{description}
 
 \end{document}
